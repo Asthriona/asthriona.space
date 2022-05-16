@@ -1,0 +1,146 @@
+<template>
+  <div class="blog-new-post">
+    <div class="blog-new-post__header">
+      <h1>New Post</h1>
+    </div>
+    <!-- alerts -->
+    <v-container v-if="alert.type">
+        <v-row>
+            <v-col cols="12">
+                <v-alert
+      border="right"
+      colored-border
+      :type="alert.type"
+      elevation="2"
+    >
+        {{ alert.text }}
+    </v-alert>
+            </v-col>
+        </v-row>
+    </v-container>
+    <v-container>
+      <v-row>
+        <v-col cols="12">
+          <div class="blog-new-post__content">
+            <div class="blog-new-post__content__form">
+              <v-form ref="form" v-model="valid" lazy-validation>
+                <v-text-field
+                  v-model="form.title"
+                  :counter="100"
+                  :rules="titleRules"
+                  label="Title"
+                  required
+                ></v-text-field>
+                <v-textarea
+                v-model="form.description"
+                :counter="0"
+                :rules="descriptionRules"
+                label="Description"
+                required></v-textarea>
+                <v-textarea
+                  v-model="form.markdown"
+                  :counter="0"
+                  :rules="contentRules"
+                  label="Content"
+                  required
+                ></v-textarea>
+                <v-text-field
+                  v-model="form.image"
+                  label="Image"
+                  :rules="imgRules"
+                  required
+                ></v-text-field>
+                <v-combobox
+                  clearable
+                  hide-selected
+                  multiple
+                  persistent-hint
+                  small-chips
+                  v-model="form.keywords"
+                  label="Keywords"
+                  required></v-combobox>
+                <v-combobox
+                    clearable
+                    hide-selected
+                    multiple
+                    persistent-hint
+                    small-chips
+                    v-model="form.tags"
+                    label="Tags"
+                    required></v-combobox>
+                <v-switch
+                v-model="form.isPosted"
+                label="Post Now?"
+                flat></v-switch>
+                <v-btn color="primary" @click="submit" :disabled="!valid">
+                  Submit
+                </v-btn>
+              </v-form>
+            </div>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+export default {
+  name: "BlogNewPost",
+  data() {
+    return {
+        alert: {
+            type: '',
+            text: '',
+        },
+        user: {},
+      form: {},
+      valid: false,
+      titleRules: [
+        (v) => !!v || "Title is required",
+        (v) =>
+          (v && v.length <= 100) || "Title must be less than 100 characters",
+      ],
+      contentRules: [(v) => !!v || "Content is required"],
+      imgRules: [(v) => !!v || "Image is required"],
+      descriptionRules: [(v) => !!v || "Description is required"],
+    };
+  },
+  created() {
+    axios.get(`${process.env.VUE_APP_URI}login/whoami`, { headers: { 'Authorization': localStorage.getItem('token')}}).then((res) => {
+        console.log(res.data);
+      if (!res.data.user.isAdmin) {
+        this.$router.push("/");
+      }
+      this.user = res.data.user;
+    });
+  },
+  methods: {
+      submit() {
+          if(this.valid) {
+              axios.post(`${process.env.VUE_APP_URI}blog/posts`, {
+                  website: 'asthriona.space',
+                  title: this.form.title,
+                  description: this.form.description,
+                  markdown: this.form.markdown,
+                  image: this.form.image,
+                  keywords: this.form.keywords,
+                  tags: this.form.tags,
+                  isPosted: this.isPosted,
+                  authorId: this.user.id,
+              }).then(res => {
+                  console.log(res)
+                    this.alert.type = 'success';
+                    this.alert.text = 'Post created successfully';
+                //   this.$router.push('/admin/blog');
+              }).catch(err => {
+                  console.log(err);
+                    this.alert.type = 'error';
+                    this.alert.text = err.response.data.message;
+              });
+          }
+      }
+  }
+};
+</script>

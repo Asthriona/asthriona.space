@@ -1,32 +1,71 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <v-app dark>
+   <TheHeader :user="user" />
+    <div class="GateWayError text-center" v-if="gatewayError == true">
+      <span>
+        <h1>Oops! Seems like Asthriona's gateway is down...</h1>
+        <p>All major feature wont be availiable.</p>
+      </span>
     </div>
-    <router-view/>
-  </div>
+   <BanComp :user="user" v-if="user && user.isBanned "/>
+    <v-main dark>
+      <router-view/>
+    </v-main>
+    <TheFooter />
+  </v-app>
 </template>
 
+<script>
+import axios from 'axios';
+import TheHeader from '@/components/PageComp/TheHeader.vue'
+import TheFooter from '@/components/PageComp/TheFooter.vue'
+import BanComp from '@/components/users/banComp.vue'
+export default {
+  name: 'App',
+  components: {
+    TheHeader,
+    BanComp,
+    TheFooter,
+  },
+  data: () => ({
+    user: {},
+    gatewayError: false,
+  }),
+  created() {
+    axios.get(`${process.env.VUE_APP_URI}login/whoami`, { headers: { 'Authorization': localStorage.getItem('token')}})
+    .then((res) => {
+      if(res.data.msg == 'Invalid token'){
+        return this.user = null;
+      }
+      if(!res.data.user) {
+        this.user = null;
+      }
+      if(res.data.user) {
+        this.user = res.data.user;
+      }
+
+    })
+    .catch(() => {
+      this.user = null;
+      this.gatewayError = true;
+    })
+    // vuetify darkmode
+    this.$vuetify.theme.dark = true;  
+  },
+};
+</script>
+
+<style scoped>
+.GateWayError {
+  /* banner under navbar */
+  background-color: #f44336;
+  color: #fff;
+  margin-top: 4rem;
+}
+</style>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.avatarBanned {
+  filter: grayscale(100%);
 }
 </style>
