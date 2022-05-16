@@ -88,11 +88,11 @@
         - [ ] Delete comment
         - [ ] reply to comment
 - [ ] user profile page
-    - [ ] Display name
-    - [ ] Avatar
-    - [ ] Social Links
-    - [ ] Bio
-    - [ ] {username}#{discriminator}
+    - [x] Display name
+    - [x] Avatar
+    - [x] Social Links
+    - [x] Bio
+    - [x] {username}#{discriminator}
     - [ ] post by user
     - [ ] comment by user
 
