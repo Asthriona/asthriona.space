@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Meta from 'vue-meta'
 import Home from '../views/Home.vue'
 import Login from '../views/user/Login.vue'
 import OwnProfile from '../views/user/OwnProfile.vue'
@@ -17,6 +18,7 @@ import AdminUsers from '../views/admin/users/adminUsers.vue'
 // Errors
 import NotFound from '../views/errors/404.vue'
 
+Vue.use(Meta)
 Vue.use(VueRouter)
 
 const routes = [
