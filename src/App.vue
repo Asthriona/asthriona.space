@@ -7,9 +7,9 @@
         <p>All major feature wont be availiable.</p>
       </span>
     </div>
-   <BanComp :user="user" v-if="user && user.isBanned "/>
+   <BanComp :user="user" v-if="user && user.isBanned"/>
     <v-main dark>
-      <router-view/>
+      <router-view :user="user" />
     </v-main>
     <TheFooter />
   </v-app>
