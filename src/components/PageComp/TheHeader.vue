@@ -16,7 +16,7 @@
       <div class="d-flex align-center">
         <router-link to="/">
           <v-btn text
-          >Home</v-btn
+          ><v-icon>mdi-home</v-icon> Home</v-btn
         ></router-link>
         <v-btn target="_blank" text
           ><a target="_blank" class="noLink" href="https://asthriona.com"
