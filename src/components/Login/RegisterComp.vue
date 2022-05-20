@@ -19,7 +19,7 @@
             <span class="headline">
               <v-icon>mdi-check-circle</v-icon>
               <span>
-                Your account has been created! <br>
+                Your account has been created! <br />
                 Please check your mailbox to verify your email!
               </span>
             </span>
@@ -84,7 +84,7 @@
 </template>
 
 <script>
-const axios = require('axios');
+const axios = require("axios");
 export default {
   name: "register",
   data() {
@@ -97,27 +97,27 @@ export default {
       terms: false,
       valid: false,
       DisplayNameRule: [
-        (v) => !!v || "Display Name is required",
+        (v) => !!v,
+        "Display Name is required",
         (v) =>
           (v && v.length <= 10) ||
           "Display Name must be less than 10 characters",
       ],
       usernameRule: [
-        (v) => !!v || "Username is required",
-        (v) =>
-          (v && v.length <= 10) || "Username must be less than 10 characters",
+        (v) => !!v,
+        "Username is required",
+        (v) => v && v.length <= 10,
+        "Username must be less than 10 characters",
       ],
       emailRule: [
-        (v) => !!v || "Email is required",
-        (v) => /.+@.+\..+/.test(v) || "Email must be valid",
-        (v) => {
-          if (v.endsWith("live.com" || "live.co.uk" || "live.co.jp" || "live.jp" || "live.de" || "live.fr" || "live.it" || "hotmail.com" || "outlook.jp" || "outlook.com" || "outlook.de" || "outlook.fr" || "outlook.it" || "outlook.com.au" || "outlook.com.br" || "outlook.com.cn" || "outlook.com.hk" || "outlook.com.mx" || "outlook.com.tr" || "outlook.com.vn" || "outlook.co.in" || "outlook.co.kr" || "outlook.co.nz" || "outlook.co.th" || "outlook.com.tw" || "outlook.com.ua" || "outlook.com.vn" || "outlook.com.sg" || "outlook.com.my" || "outlook.com.ph" || "outlook.com.sg" || "outlook.com.tw" || "outlook.com.ua" || "outlook.com.vn" || "outlook.co.nz" || "outlook.co.th" || "outlook.co.uk" || "outlook.co.jp" || "outlook.co.in" || "outlook.co.kr" || "outlook.co.nz" || "outlook.co.th" || "outlook.com.tw" || "outlook.com.ua" || "outlook.com.vn" || "outlook.com.sg" || "outlook.com.my" || "outlook.com.ph" || "outlook.com.sg" || "outlook.com.tw" || "outlook.com.ua" || "outlook.com.vn" || "outlook.co.nz" || "outlook.co.th" || "outlook.co.uk" || "outlook.co.jp" || "outlook.co.in" || "outlook.co.kr" || "outlook.co.nz" || "outlook.co.th" || "outlook.com.tw" || "outlook.com.ua" || "outlook.com.vn" || "outlook.com.sg" || "outlook.com")) {
-            return "Sorry we cannot send email to Microsoft domain at this moment, we are working on it!";
-          }
-        }
+        (v) => !!v,
+        "Email is required",
+        (v) => /.+@.+\..+/.test(v),
+        "Email must be valid",
       ],
       passwordRule: [
-        (v) => !!v || "Password is required",
+        (v) => !!v,
+        "Password is required",
         (v) =>
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&<>]{8,}$/.test(
             v
@@ -125,11 +125,13 @@ export default {
           "Password must be at least 8 characters, and contain at least one number, one uppercase letter and one special character",
       ],
       passwordVerificationRule: [
-        (v) => !!v || "Password is required",
-        (v) => (v && v === this.password) || "Passwords must match",
+        (v) => !!v,
+        "Password is required",
+        (v) => v && v === this.password,
+        "Passwords must match",
       ],
-      error: '',
-      success: ''
+      error: "",
+      success: "",
     };
   },
   methods: {
@@ -145,7 +147,7 @@ export default {
             terms: this.terms,
           })
           .then((res) => {
-            console.log(res)
+            console.log(res);
           })
           .catch((err) => {
             this.error = err.response.data.message;
@@ -153,6 +155,6 @@ export default {
           });
       }
     },
-  }
+  },
 };
 </script>
