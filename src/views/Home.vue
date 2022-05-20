@@ -64,7 +64,7 @@
         xl="2">
           <!-- Works -->
               <v-card >
-                <v-img :src="work.img"></v-img>
+                <v-img :src="work.img" lazy></v-img>
                 <v-card-title>{{ work.title }}</v-card-title>
                 <v-card-text>{{ work.description }}</v-card-text>
                 <v-card-actions>
@@ -92,7 +92,7 @@
         lg="3"
         xl="2">
             <v-card>
-              <v-img :src="anime.img"></v-img>
+              <v-img :src="anime.img" lazy></v-img>
               <v-card-title>{{ anime.title }}</v-card-title>
               <v-card-text>{{ anime.description }}</v-card-text>
               <v-card-actions>
@@ -241,7 +241,7 @@ export default {
   src: url(../assets/font/logofont.ttf) format("truetype");
 }
 .head-banner {
-  background-image: url(https://cdn.asthriona.com/i/2022/05/background.jpg);
+  background-image: url(https://cdn.asthriona.com/i/2022/05/nihon-graphy-eeUmYVTkFg4-unsplash.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
