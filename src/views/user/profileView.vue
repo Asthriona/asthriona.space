@@ -1,5 +1,6 @@
 <template>
   <div class="Profil">
+    <div class="banner" v-if="user.profileBanner" :style="`background:url(${user.profileBanner});`"></div>
     <v-container>
       <v-row>
         <v-col cols="12">
@@ -68,3 +69,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.banner {
+  height: 400px !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+</style>

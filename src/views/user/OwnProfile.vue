@@ -1,5 +1,6 @@
 <template>
   <div class="Profil">
+    <div class="banner" v-if="user.profileBanner" :style="`background:url(${user.profileBanner});`"></div>
     <v-container>
       <v-row>
         <v-col cols="12">
@@ -44,22 +45,17 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   name: "OwnProfile",
-  data() {
-    return {
-      user: {},
-    };
-  },
-  created() {
-    axios
-      .get(`${process.env.VUE_APP_URI}login/whoami`, {
-        headers: { Authorization: localStorage.getItem("token") },
-      })
-      .then((res) => {
-        this.user = res.data.user;
-      });
-  },
+  props: ['user'],
 };
 </script>
+
+<style scoped>
+.banner {
+  height: 400px !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+</style>
