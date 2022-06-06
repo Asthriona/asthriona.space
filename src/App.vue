@@ -1,5 +1,20 @@
 <template>
-  <v-app dark>
+  <div class="app">
+    <div class="isOffline" v-if="isOnline == false">
+    <v-app dark>
+      <!-- center text middle of the screen -->
+      <div class="offline">
+        <h1 class="text-center">
+          This website is still under construction.
+        </h1>
+        <h1 class="text-center">
+          Please check back later.
+        </h1>
+      </div>
+      </v-app>
+    </div>
+    <div class="isOnline" v-else>
+      <v-app dark>
    <TheHeader :user="user" />
     <div class="GateWayError text-center" v-if="gatewayError == true">
       <span>
@@ -13,6 +28,8 @@
     </v-main>
     <TheFooter />
   </v-app>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -30,6 +47,7 @@ export default {
   data: () => ({
     user: {},
     gatewayError: false,
+    isOnline: false,
   }),
   created() {
     axios.get(`${process.env.VUE_APP_URI}login/whoami`, { headers: { 'Authorization': localStorage.getItem('token')}})
@@ -56,11 +74,29 @@ export default {
 </script>
 
 <style scoped>
+/* google font roboto*/
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
 .GateWayError {
   /* banner under navbar */
   background-color: #f44336;
   color: #fff;
   margin-top: 4rem;
+}
+html, body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.5;
+  background-color: #333;
+  color: #fff;
+}
+.offline {
+  /* font roboto */
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  position: relative;
+  margin-top: 20%;
+  transform: translateY(-50%);
 }
 </style>
 
