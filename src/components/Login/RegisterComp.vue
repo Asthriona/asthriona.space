@@ -30,42 +30,42 @@
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field
             v-model="displayName"
-            :counter="10"
-            :rules="DisplayNameRule"
+            :counter="20"
+            :rules="[rules.required, rules.min, rules.max]"
             label="Display Name"
             require
           ></v-text-field>
           <v-text-field
             v-model="username"
             :counter="10"
-            :rules="usernameRule"
+            :rules="[rules.required, rules.min, rules.max]"
             label="Username"
             require
           ></v-text-field>
           <v-text-field
             v-model="email"
-            :rules="emailRule"
+            :rules="[rules.required, rules.email]"
             label="Email"
             require
           ></v-text-field>
           <v-text-field
             v-model="password"
             :counter="50"
-            :rules="passwordRule"
+            :rules="[rules.required, rules.min, rules.password]"
             type="password"
             label="Password"
             attr="new-password"
             require
           ></v-text-field>
-          <v-text-field
+          <!-- <v-text-field
             v-model="passwordVerification"
             :counter="50"
-            :rules="passwordVerificationRule"
+            :rules="[rules.required, rules.passwordVerification]"
             type="password"
             label="Password Again..."
             attribute="new-password"
             require
-          ></v-text-field>
+          ></v-text-field> -->
           <v-checkbox v-model="terms">
             <template v-slot:label>
               <div @click.stop="">
@@ -96,40 +96,22 @@ export default {
       passwordVerification: "",
       terms: false,
       valid: false,
-      DisplayNameRule: [
-        (v) => !!v,
-        "Display Name is required",
-        (v) =>
-          (v && v.length <= 10) ||
-          "Display Name must be less than 10 characters",
-      ],
-      usernameRule: [
-        (v) => !!v,
-        "Username is required",
-        (v) => v && v.length <= 10,
-        "Username must be less than 10 characters",
-      ],
-      emailRule: [
-        (v) => !!v,
-        "Email is required",
-        (v) => /.+@.+\..+/.test(v),
-        "Email must be valid",
-      ],
-      passwordRule: [
-        (v) => !!v,
-        "Password is required",
-        (v) =>
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&<>]{8,}$/.test(
-            v
-          ) ||
-          "Password must be at least 8 characters, and contain at least one number, one uppercase letter and one special character",
-      ],
-      passwordVerificationRule: [
-        (v) => !!v,
-        "Password is required",
-        (v) => v && v === this.password,
-        "Passwords must match",
-      ],
+      rules: {
+        required: (v) => !!v || "Required",
+        min: (v) => (v && v.length >= 3) || "Must be at least 3 characters",
+        max: (v) => (v && v.length <= 20) || "Must be less than 20 characters",
+        email: (value) =>
+          (value &&
+            /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)) ||
+          "Invalid email",
+        password: (value) =>
+          (value &&
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+              value
+            )) ||
+          "Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character",
+        passwordVerification: (v) => (v !== this.password) || "Passwords do not match",
+      },
       error: "",
       success: "",
     };
