@@ -35,7 +35,7 @@
               <span>edit profile</span>
             </v-btn>
           </router-link>
-          <v-btn depressed color="error" v-onclick="logout"> <v-icon>mdi-account-off-outline</v-icon> Logout </v-btn>
+          <v-btn depressed color="error" @click="logout"> <v-icon>mdi-account-off-outline</v-icon> Logout </v-btn>
         </v-col>
       </v-row>
       <v-row>
