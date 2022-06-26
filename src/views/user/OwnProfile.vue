@@ -1,6 +1,10 @@
 <template>
   <div class="Profil">
-    <div class="banner" v-if="user.profileBanner" :style="`background:url(${user.profileBanner});`"></div>
+    <div
+      class="banner"
+      v-if="user.profileBanner"
+      :style="`background:url(${user.profileBanner});`"
+    ></div>
     <v-container>
       <v-row>
         <v-col cols="12">
@@ -13,11 +17,9 @@
         <v-col cols="12" class="text-center">
           <h1>
             {{ user.displayName }}
-            <v-icon
-              > {{ user.selectedBadge }} </v-icon
-            >
+            <v-icon> {{ user.selectedBadge }} </v-icon>
           </h1>
-                    <v-icon>mdi-format-quote-open</v-icon>
+          <v-icon>mdi-format-quote-open</v-icon>
           {{ user.description }}
         </v-col>
         <v-col cols="12" class="accountName d-flex justify-center">
@@ -27,18 +29,19 @@
           </h3>
         </v-col>
         <v-col cols="12" class="d-flex justify-center">
-            <router-link :to="{ name: 'editProfile' }">
-                <v-btn text>
-                <v-icon>mdi-badge-account</v-icon>
-                <span>edit profile</span>
+          <router-link :to="{ name: 'editProfile' }">
+            <v-btn text>
+              <v-icon>mdi-badge-account</v-icon>
+              <span>edit profile</span>
             </v-btn>
-            </router-link>
+          </router-link>
+          <v-btn depressed color="error" v-onclick="logout"> <v-icon>mdi-account-off-outline</v-icon> Logout </v-btn>
         </v-col>
       </v-row>
       <v-row>
-          <v-col cols="12" class="d-flex justify-center">
-              <h1>User has no content yet.</h1>
-          </v-col>
+        <v-col cols="12" class="d-flex justify-center">
+          <h1>User has no content yet.</h1>
+        </v-col>
       </v-row>
     </v-container>
   </div>
@@ -47,7 +50,13 @@
 <script>
 export default {
   name: "OwnProfile",
-  props: ['user'],
+  props: ["user"],
+  methods: {
+  logout() {
+    localStorage.removeItem("token");
+    window.location.href = "/";
+  },
+},
 };
 </script>
 
