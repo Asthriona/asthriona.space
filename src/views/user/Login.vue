@@ -35,5 +35,10 @@ export default {
         RegisterComp,
         LoginComp,
     },
+    beforeCreate() {
+        if (localStorage.getItem('token')) {
+            window.location.href = '/';
+        }
+    }
 }
 </script>
