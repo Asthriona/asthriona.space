@@ -59,8 +59,15 @@
           <v-col cols="12">
             <div class="headline">
               <p>post new comments</p>
+              <!-- if no user -->
+              <div v-if="!user.username">
+                <p>
+                  <router-link to="/login">login</router-link> to post a
+                  comment
+                </p>
+              </div>
               <!-- if user is banned. -->
-              <v-alert type="error" class="text-center" v-if="user.isBanned">
+              <v-alert type="error" class="text-center" v-else-if="user.isBanned">
                 <span class="headline">
                   <v-icon>mdi-alert-circle</v-icon>
                   <span>
