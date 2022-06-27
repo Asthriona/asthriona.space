@@ -35,15 +35,17 @@
               <p>About the author:</p>
             </div>
             <div class="author-img">
-              <v-avatar size="150">
+              <v-avatar size="100">
                 <v-img :src="author.avatar"></v-img>
               </v-avatar>
-              <span class="ml-4 display-2"
+              <router-link class="nolink" :to="`/profile/${author.username}`">
+              <span class="ml-4 display-1"
                 >{{ author.displayName }}#{{ author.discriminator }}
                 <v-icon size="50" class="mb-2">{{
                   author.selectedBadge
                 }}</v-icon></span
               >
+              </router-link>
               <br />
               <span class="ml-12 subtitle">{{ author.description }}</span>
             </div>
@@ -190,6 +192,13 @@ export default {
 </script>
 
 <style>
+.nolink {
+  color: aliceblue !important;
+  text-decoration: none !important;
+}
+.nolink a {
+  color: aliceblue;
+}
 .thumbnail {
   background-size: cover;
   background-position: center;
