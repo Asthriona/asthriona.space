@@ -14,6 +14,7 @@ import AdminBlog from '../views/admin/adminBlog.vue'
 import AdminBlogCreate from '../views/admin/AdminBlogCreate.vue'
 import AdminData from '../views/admin/WebData.vue'
 import AdminUsers from '../views/admin/users/adminUsers.vue'
+import TweetHome from '../views/tweet/tweetHome.vue'
 
 // Errors
 import NotFound from '../views/errors/404.vue'
@@ -86,6 +87,11 @@ const routes = [
     path: '/admin/users',
     name: 'Admin-Users',
     component: AdminUsers
+  },
+  {
+    path: '/tweet',
+    name: 'Tweet',
+    component: TweetHome
   },
   {
     path: '/about',
