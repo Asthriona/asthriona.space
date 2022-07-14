@@ -117,7 +117,7 @@
         </v-btn>
           <v-btn @click="modAccount" color="success" v-if="!user.isMod" text disabled>
             <v-icon>mdi-shield-crown-outline</v-icon>
-            <span>Verify</span>
+            <span>Grant Moderation</span>
           </v-btn>
           <v-btn @click="unModAccount" color="error" text v-if="user.isMod">
             <v-icon>mdi-shield-crown-outline</v-icon>

@@ -35,15 +35,17 @@
               <p>About the author:</p>
             </div>
             <div class="author-img">
-              <v-avatar size="150">
+              <v-avatar size="100">
                 <v-img :src="author.avatar"></v-img>
               </v-avatar>
-              <span class="ml-4 display-2"
+              <router-link class="nolink" :to="`/profile/${author.username}`">
+              <span class="ml-4 display-1"
                 >{{ author.displayName }}#{{ author.discriminator }}
                 <v-icon size="50" class="mb-2">{{
                   author.selectedBadge
                 }}</v-icon></span
               >
+              </router-link>
               <br />
               <span class="ml-12 subtitle">{{ author.description }}</span>
             </div>
@@ -57,8 +59,15 @@
           <v-col cols="12">
             <div class="headline">
               <p>post new comments</p>
+              <!-- if no user -->
+              <div v-if="!user.username">
+                <p>
+                  <router-link to="/login">login</router-link> to post a
+                  comment
+                </p>
+              </div>
               <!-- if user is banned. -->
-              <v-alert type="error" class="text-center" v-if="user.isBanned">
+              <v-alert type="error" class="text-center" v-else-if="user.isBanned">
                 <span class="headline">
                   <v-icon>mdi-alert-circle</v-icon>
                   <span>
@@ -190,6 +199,13 @@ export default {
 </script>
 
 <style>
+.nolink {
+  color: aliceblue !important;
+  text-decoration: none !important;
+}
+.nolink a {
+  color: aliceblue;
+}
 .thumbnail {
   background-size: cover;
   background-position: center;

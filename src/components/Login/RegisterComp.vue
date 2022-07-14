@@ -2,12 +2,12 @@
   <div class="register">
     <v-container>
       <v-row v-if="error">
-        <v-col cols="12" class="text-center">
-          <v-alert type="error" icon="mdi-alert-circle">
+        <v-col cols="12" class="text-center" v-if="error.type">
+          <v-alert :type="error.type" icon="mdi-alert-circle">
             <span class="headline">
               <v-icon>mdi-alert-circle</v-icon>
               <span>
-                {{ error }}
+                {{ error.message }}
               </span>
             </span>
           </v-alert>
@@ -112,7 +112,10 @@ export default {
           "Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character",
         passwordVerification: (v) => (v !== this.password) || "Passwords do not match",
       },
-      error: "",
+      error: {
+        message: "",
+        type: "",
+      },
       success: "",
     };
   },
@@ -129,11 +132,16 @@ export default {
             terms: this.terms,
           })
           .then((res) => {
-            console.log(res);
+            this.error.type = "success";
+            this.error.message = "You are now logged in, you will be redirected in a second.";
+            setTimeout(() => {
+              this.$router.push("/");
+              return res;
+            }, 2000);
           })
           .catch((err) => {
-            this.error = err.response.data.message;
-            console.log(err.response.data);
+            this.error.message = err.response.data.message;
+            this.error.type = "error"
           });
       }
     },
