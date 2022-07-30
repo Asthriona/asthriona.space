@@ -148,8 +148,6 @@ export default {
     };
   },
   mounted() {
-    // request to whoamI
-    axios.get(`${process.env.API_URL}/whoami`);
     axios
       .get(
         `${process.env.VUE_APP_URI}blog/posts/asthriona.space/${this.$route.params.slug}`
@@ -157,7 +155,22 @@ export default {
       .then((res) => {
         this.post = res.data.post;
         this.author = res.data.author;
-      });
+      })
+      .catch((err) => {
+        if(err.response.status == 404) {
+          this.$router.push("/404");
+        } else {
+          this.post = {
+            title: "Post not found...",
+            content: "An error may have happen while trying to get this post, or it has been deleted.",
+          },
+          this.author = {
+            displayName: "Undefined",
+            avatar: "https://i.imgur.com/XqQZQZJ.png",
+            discriminator: "0000",
+          };
+        }
+      }),
     this.loading.comment = true;
     axios
       .get(
