@@ -130,14 +130,14 @@ export default {
                   isPosted: this.isPosted,
                   authorId: this.user.id,
               }).then(res => {
-                  console.log(res)
+                  console.log(res.data)
                     this.alert.type = 'success';
                     this.alert.text = 'Post created successfully';
                 //   this.$router.push('/admin/blog');
               }).catch(err => {
-                  console.log(err);
+                  console.log(err.response.statusText);
                     this.alert.type = 'error';
-                    this.alert.text = err.response.data.message;
+                    this.alert.text = `Error: ${err.response.status} - ${err.response.data.message || err.response.statusText}`;
               });
           }
       }
