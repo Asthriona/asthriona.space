@@ -32,10 +32,19 @@
         <AdminWidget :user="user" :myself="myself"/>
         </div>
       </v-row>
-      <v-row>
-          <v-col cols="12" class="d-flex justify-center">
-              <h1>User has no content yet.</h1>
-          </v-col>
+            <v-row>
+        <v-col cols="12">
+          <span class="text-center display-1">
+            Latest post by {{ user.displayName }} <v-icon size="30">{{ user.selectedBadge }}</v-icon>
+          </span>
+          <UserPostComp :userId="user" />
+        </v-col>
+        <v-col cols="12">
+          <span class="text-center display-1">
+            Latest comments by {{ user.displayName }} <v-icon size="30">{{ user.selectedBadge }}</v-icon>
+          </span>
+          <UserComments :userId="user" />
+        </v-col>
       </v-row>
     </v-container>
   </div>
@@ -44,11 +53,15 @@
 <script>
 import axios from "axios";
 import AdminWidget from "../../components/Admin/profileWidget.vue"
+import UserPostComp from "../../components/users/userPosts.vue";
+import UserComments from "../../components/users/userComments.vue";
 export default {
   name: "UserProfile",
   components: {
-    AdminWidget
-  },
+    AdminWidget,
+    UserPostComp,
+    UserComments
+},
   data() {
     return {
       user: {},
