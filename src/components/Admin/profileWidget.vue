@@ -32,6 +32,16 @@
             <v-card-text>
               <v-container>
                 <v-row>
+                  <v-col cols="12">
+                    <v-alert
+                    v-model="alert.show"
+                    close-label="Okay!"
+                    :color="alert.type"
+                    dark
+                    dismissible>
+                    {{ alert.text }}
+                    </v-alert>
+                  </v-col>
                   <v-col
                   cols="12"
                   sm="6"
@@ -90,8 +100,8 @@
             <v-card-action>
               <v-spacer></v-spacer>
               <div class="alert">
-                <v-alert v-if="alert.message" :color="alert.type">
-                  {{ alert.message }}
+                <v-alert v-model="alert.show" :color="alert.type">
+                  {{ alert.text }}
                 </v-alert>
               </div>
               <v-btn color="error" text @click="ubBanDialog = false">Cancel</v-btn>
@@ -159,7 +169,8 @@ export default {
       banReason: "",
       alert: {
         type: "",
-        text: ""
+        text: "",
+        show: false
       }
     };
   },
@@ -182,12 +193,16 @@ export default {
           this.user.selectedBadge = 'mdi-shield-off-outline'
           this.alert.type = "success";
           this.alert.text = "Account banned";
-          this.banDialog = false;
+          this.alert.show = true;
+          setTimeout(() => {
+            this.banDialog = false;
+          }, 3000);
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.response);
           this.alert.type = "error";
-          this.alert.text = error.response.data.message;
+          this.alert.text = error.response.data.error;
+          this.alert.show = true;
         });
     },
     unBanAccount() {
