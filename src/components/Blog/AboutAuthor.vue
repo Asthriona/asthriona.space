@@ -9,5 +9,6 @@
             <span>
                 <div class="display-4">Asthriona</div>
             </span>
+        </v-col>
     </div>
 </template>
