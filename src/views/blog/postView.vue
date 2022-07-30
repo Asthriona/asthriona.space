@@ -16,7 +16,7 @@
             >
             <br />
             <i v-if="post.updatedAt"
-              >last Update: {{ post.update | moment("dddd, MM Do YYYY") }}</i
+              >last Update: {{ new Date(post.updatedAt) | moment("dddd, MM Do YYYY") }}</i
             >
           </div>
         </v-col>
@@ -38,15 +38,15 @@
               <v-avatar size="100">
                 <v-img :src="author.avatar"></v-img>
               </v-avatar>
+              <span class="ml-4 display-1">
               <router-link class="nolink" :to="`/profile/${author.username}`">
-              <span class="ml-4 display-1"
-                >{{ author.displayName }}#{{ author.discriminator }}
+                {{ author.displayName }}#{{ author.discriminator }}
                 <v-icon size="50" class="mb-2">{{
                   author.selectedBadge
-                }}</v-icon></span
-              >
-              </router-link>
-              <br />
+                }}</v-icon>
+                </router-link>
+                </span>
+                <br />
               <span class="ml-12 subtitle">{{ author.description }}</span>
             </div>
           </div>
