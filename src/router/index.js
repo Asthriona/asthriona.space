@@ -12,6 +12,7 @@ import PostShow from '../views/blog/postView.vue'
 import AdmonHome from '../views/admin/adminHome.vue'
 import AdminBlog from '../views/admin/adminBlog.vue'
 import AdminBlogCreate from '../views/admin/AdminBlogCreate.vue'
+import AdminBlogUpdate from '../views/admin/AdminBlogUpdate.vue'
 import AdminData from '../views/admin/WebData.vue'
 import AdminUsers from '../views/admin/users/adminUsers.vue'
 import TweetHome from '../views/tweet/tweetHome.vue'
@@ -83,6 +84,11 @@ const routes = [
     path: '/admin/blog/create',
     name: 'newPost',
     component: AdminBlogCreate
+  },
+  {
+    path: '/admin/blog/update/:slug',
+    name: 'updatePost',
+    component: AdminBlogUpdate
   },
   {
     path: '/admin/users',

@@ -49,8 +49,8 @@
                         <v-btn
                         color="warning"
                         class="ml-1 mr-1 mb-2"
-                        disabled
-                        :href="'/admin/blog/edit/' + post.id">Edit</v-btn>
+                        @click="postEdit(post.slug)"
+                        >Edit</v-btn>
                         <v-btn
                         color="error"
                         class="ml-1 mr-1 mb-2"
@@ -109,6 +109,9 @@ export default {
     methods: {
         postRedirect(slug) {
             this.$router.push(`/blog/${slug}`);
+        },
+        postEdit(slug) {
+            this.$router.push(`/admin/blog/update/${slug}`);
         },
         deletePost(slug) {
             axios.delete(`${process.env.VUE_APP_URI}blog/posts/asthriona.space/${slug}`, {
