@@ -56,17 +56,17 @@
         - [x] Verify Users
         - [x] Unverify Users
     - [ ] Blog Management
-        - [ ] List of posts
-        - [ ] Edit post
-        - [ ] Delete post
+        - [x] List of posts
+        - [x] Edit post
+        - [x] Delete post
         - [x] Publish post
         - [ ] Unpublish post
-        - [ ] Add post
+        - [x] Add post
         - [ ] Add category
         - [ ] Delete category
         - [ ] Edit category
-        - [ ] Add tag
-        - [ ] Delete tag
+        - [x] Add tag
+        - [x] Delete tag
         - [ ] Edit tag
         - [ ] Add comment
         - [ ] Delete comment
