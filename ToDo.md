@@ -90,6 +90,8 @@
 - [ ] user profile page
     - [x] Display name
     - [x] Avatar
+    - [ ] Upload avatar
+    - [ ] reframe avatar
     - [x] Social Links
     - [x] Bio
     - [x] {username}#{discriminator}
