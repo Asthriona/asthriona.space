@@ -97,6 +97,25 @@
               </v-form>
           </v-card>
         </v-col>
+        <!-- Update email -->
+        <v-col cols="3">
+          <v-card title="Update email">
+            <v-card-title>
+              Update email
+            </v-card-title>
+            <v-card-text>
+              <v-form>
+                <v-text-field
+                  v-model="form.email"
+                  :counter="50"
+                  label="Email"
+                  :placeholder="user.email"
+                ></v-text-field>
+                <v-btn color="primary" @click="updateEmail">Update</v-btn>
+              </v-form>
+            </v-card-text>
+          </v-card>
+        </v-col>
         <v-col cols="3" v-if="user.isAdmin || user.isVerified">
           <v-card title="Choose Badge">
             <v-card-text>
@@ -240,6 +259,30 @@ export default {
           this.alert.type = "error";
         });
     },
+    updateEmail() {
+      axios
+        .post(
+          `${process.env.VUE_APP_URI}profile/update/email`,
+          {
+            email: this.form.email,
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        )
+        .then((res) => {
+          this.user.email = res.data.email;
+          this.form.email = "";
+        })
+        .catch((err) => {
+          this.alert.text = `${err.response.status || "500"} - ${
+            err.response.data.message || "Internal Server Error"
+          }`;
+          this.alert.type = "error";
+        });
+    }
   },
 };
 </script>

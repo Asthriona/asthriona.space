@@ -56,6 +56,8 @@ export default {
     data() {
         return {
             emailToken: this.$route.query.token,
+            isUpdate: this.$route.query.update,
+            email: this.$route.query.email,
             loading: true,
             verified: false,
             error: '',
@@ -64,8 +66,22 @@ export default {
     },
     mounted() {
         this.loading = true
-        axios.post(`${process.env.VUE_APP_URI}login/verifyEmail?token=${this.emailToken}`, {
-            emailToken: this.emailToken
+        let body;
+        if(this.isUpdate){
+            body = {
+                token: this.emailToken,
+                email: this.email,
+                update: true
+            }
+            }else {
+                body = {
+                    emailToken: this.emailToken,
+                    update: false
+                }
+            }
+        axios.post(`${process.env.VUE_APP_URI}login/verify-email`, {
+            body
+
         }).then((res) => {
             this.loading = false
             this.verified = true
