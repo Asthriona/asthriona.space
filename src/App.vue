@@ -10,7 +10,7 @@
       </div>
       <BanComp :user="user" v-if="user && user.isBanned" />
       <v-main dark>
-        <router-view :user="user" />
+        <router-view @updateUser="updateUser" :user="user" />
       </v-main>
       <TheFooter />
     </v-app>
@@ -56,6 +56,23 @@ export default {
     // vuetify darkmode
     this.$vuetify.theme.dark = true;
   },
+  methods: {
+    updateUser() {
+      axios
+        .get(`${process.env.VUE_APP_URI}login/whoami`, {
+          headers: { Authorization: localStorage.getItem("token") },
+        })
+        .then((res) => {
+          this.user = res.data.user;
+          console.log("User updated... refreshing...");
+          this.$router.go();
+        })
+        .catch(() => {
+          this.user = null;
+          this.gatewayError = true;
+        });
+    }
+  }
 };
 </script>
 

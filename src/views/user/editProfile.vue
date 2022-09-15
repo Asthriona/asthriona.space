@@ -15,16 +15,16 @@
             <v-card-text>
               <v-form>
                 <!-- upload file -->
-                <!-- <v-file-input
+                <v-file-input
                   v-model="file"
                   label="Upload a new avatar"
                   prepend-icon="mdi-camera"
                   color="primary"
-                ></v-file-input> -->
-                <v-text-field
+                ></v-file-input>
+                <!-- <v-text-field
                   v-model="file"
                   label="https://imgup.asthriona.com/i/eWI5UmUgsO"
-                ></v-text-field>
+                ></v-text-field> -->
                 <v-btn color="primary" @click="updateAvatar">Update</v-btn>
                 <br />
                 <small
@@ -165,21 +165,25 @@ export default {
       });
   },
   methods: {
-    updateAvatar() {
-      axios
-        .post(`${process.env.VUE_APP_URI}profile/update/avatar`, {avatar: this.file}, {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        })
-        .then(() => {
-          this.user.avatar = this.file;
-          this.alert.type = "success";
-          this.alert.text = "Avatar updated";
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    updateAvatar(event) {
+      event.preventDefault();
+      const formData = new FormData();
+      formData.append("avatar", this.file);
+      axios.post(`${process.env.VUE_APP_URI}profile/update/avatar`, formData, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+          "Content-Type": "multipart/form-data",
+        },
+      }).then(() => {
+        this.alert.type = "success";
+        this.alert.text = "Avatar updated";
+        // emit event to update avatar in app.vue
+        this.$emit("updateUser");
+      }).catch((error) => {
+        console.log(error);
+        this.alert.type = "error";
+        this.alert.text = error.response.data.message;
+      });
     },
     updateProfile(e) {
       e.preventDefault();
@@ -203,6 +207,7 @@ export default {
           this.user.email = this.form.email;
           this.user.discriminator = this.form.discriminator;
           this.form = {};
+          this.$emit("updateUser");
         })
         .catch((err) => {
           this.alert.text = `${err.response.status || "500"} - ${
