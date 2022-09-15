@@ -19,6 +19,10 @@
             >
           </h1>
         </v-col>
+        <v-col cols="12" class="text-center" v-if="user.description != null">
+          <v-icon>mdi-format-quote-open</v-icon>
+          {{ user.description }}
+        </v-col>
         <v-col cols="12" class="accountName d-flex justify-center">
           <h3>
             <v-icon>mdi-account</v-icon>
@@ -76,7 +80,6 @@ export default {
     axios
       .get(`${process.env.VUE_APP_URI}profile/user/${this.$route.params.username}`)
       .then((res) => {
-          console.log(res.data)
         this.user = res.data;
       });
   },
