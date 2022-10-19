@@ -147,7 +147,7 @@ export default {
       },
     };
   },
-  mounted() {
+  created() {
     axios
       .get(
         `${process.env.VUE_APP_URI}blog/posts/asthriona.space/${this.$route.params.slug}`
@@ -155,6 +155,23 @@ export default {
       .then((res) => {
         this.post = res.data.post;
         this.author = res.data.author;
+        const post = res.data.post
+        // remove all twitter card meta tags
+        const twitterCard = document.querySelector('meta[name="twitter:card"]')
+        const twitterTitle = document.querySelector('meta[name="twitter:title"]')
+        const twitterDescription = document.querySelector('meta[name="twitter:description"]')
+        const twitterImage = document.querySelector('meta[name="twitter:image"]')
+        twitterCard.remove()
+        twitterTitle.remove()
+        twitterDescription.remove()
+        twitterImage.remove()
+        // add new twitter card meta tags
+        document.head.innerHTML += `<meta name="twitter:card" content="summary" />`;
+        document.head.innerHTML += `<meta name="twitter:site" content="@Asthriona" />`;
+        document.head.innerHTML += `<meta name="twitter:title" content="${post.title}" />`;
+        document.head.innerHTML += `<meta name="twitter:description" content="${post.description}" />`;
+        document.head.innerHTML += `<meta name="twitter:image" content="${post.image}" />`;
+        document.head.innerHTML += `<meta name="twitter:creator" content="@Asthriona" />`;
       })
       .catch((err) => {
         if(err.response.status == 404) {
@@ -180,6 +197,22 @@ export default {
         this.comments = res.data.comments;
         this.loading.comment = false;
       });
+  },
+  beforeUnmount() {
+    const twitterCard = document.querySelector('meta[name="twitter:card"]')
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]')
+    const twitterDescription = document.querySelector('meta[name="twitter:description"]')
+    const twitterImage = document.querySelector('meta[name="twitter:image"]')
+    twitterCard.remove()
+    twitterTitle.remove()
+    twitterDescription.remove()
+    twitterImage.remove()
+    document.head.innerHTML += `<meta name="twitter:card" content="summary" />`;
+    document.head.innerHTML += `<meta name="twitter:site" content="@Asthriona" />`;
+    document.head.innerHTML += `<meta name="twitter:title" content="Asthriona.space" />`;
+    document.head.innerHTML += `<meta name="twitter:description" content="a place for random stuff." />`;
+    document.head.innerHTML += `<meta name="twitter:image" content="https://pbs.twimg.com/profile_images/1478732294659706880/Bdqut4ya_400x400.jpg" />`;
+    document.head.innerHTML += `<meta name="twitter:creator" content="@Asthriona" />`;
   },
   methods: {
     submitComment(e) {
