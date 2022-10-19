@@ -60,7 +60,7 @@
             <div class="headline">
               <p>post new comments</p>
               <!-- if no user -->
-              <div v-if="!user.username">
+              <div v-if="user == null || !user">
                 <p>
                   <router-link to="/login">login</router-link> to post a
                   comment
