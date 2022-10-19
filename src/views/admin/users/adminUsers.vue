@@ -3,7 +3,7 @@
     <h1>Admin/users</h1>
     <v-container>
       <v-row>
-          <v-col cols="2" v-for="user in users" :key="user.userId">
+          <v-col cols="2" v-for="user in users" :key="user.id">
             <v-card class="mt-4 mb-4 mx-4">
               <!-- avatar -->
               <v-img>
@@ -17,7 +17,7 @@
                 <small>@{{ user.username }}</small>
               </v-card-text>
               <v-card-action>
-                <router-link :to="`/admin/users/${user.userId}`">
+                <router-link :to="`/admin/users/${user.id}`">
                   <v-btn color="primary" text>View</v-btn>
                 </router-link>
                 <router-link :to="`/profile/${user.username}`">

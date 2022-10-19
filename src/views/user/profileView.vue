@@ -1,53 +1,53 @@
 <template>
   <div class="Profil">
-    <div class="banner" v-if="user.profileBanner" :style="`background:url(${user.profileBanner});`"></div>
+    <div class="banner" v-if="usrProfile.profileBanner" :style="`background:url(${usrProfile.profileBanner});`"></div>
     <v-container>
       <v-row>
         <v-col cols="12">
           <div class="d-flex justify-center">
             <v-avatar size="200">
-              <v-img :src="user.avatar" class="avatarBanned" v-if="user.isBanned"></v-img>
-              <v-img :src="user.avatar" v-else></v-img>
+              <v-img :src="usrProfile.avatar" class="avatarBanned" v-if="usrProfile.isBanned"></v-img>
+              <v-img :src="usrProfile.avatar" v-else></v-img>
             </v-avatar>
           </div>
         </v-col>
         <v-col cols="12" class="d-flex justify-center">
           <h1>
-            {{ user.displayName }}
+            {{ usrProfile.displayName }}
             <v-icon
-              > {{ user.selectedBadge }} </v-icon
+              > {{ usrProfile.selectedBadge }} </v-icon
             >
           </h1>
         </v-col>
-        <v-col cols="12" class="text-center" v-if="user.description != null">
+        <v-col cols="12" class="text-center" v-if="usrProfile.description != null">
           <v-icon>mdi-format-quote-open</v-icon>
-          {{ user.description }}
+          {{ usrProfile.description }}
         </v-col>
         <v-col cols="12" class="accountName d-flex justify-center">
           <h3>
             <v-icon>mdi-account</v-icon>
-            {{ user.username }}#{{ user.discriminator }}
+            {{ usrProfile.username }}#{{ usrProfile.discriminator }}
           </h3>
         </v-col>
         <v-col cols="12" class="d-flex justify-center">
         </v-col>
         <!-- Admin Widget -->
-        <div class="admin d-flex justify-center" v-if="myself.isAdmin">
-        <AdminWidget :user="user" :myself="myself"/>
+        <div class="admin d-flex justify-center" v-if="user.isAdmin">
+        <AdminWidget :usrProfile="usrProfile" :user="user"/>
         </div>
       </v-row>
             <v-row>
         <v-col cols="12">
           <span class="text-center display-1">
-            Latest post by {{ user.displayName }} <v-icon size="30">{{ user.selectedBadge }}</v-icon>
+            Latest post by {{ usrProfile.displayName }} <v-icon size="30">{{ user.selectedBadge }}</v-icon>
           </span>
-          <UserPostComp :userId="user" />
+          <UserPostComp :usrProfile="usrProfile" />
         </v-col>
         <v-col cols="12">
           <span class="text-center display-1">
-            Latest comments by {{ user.displayName }} <v-icon size="30">{{ user.selectedBadge }}</v-icon>
+            Latest comments by {{ usrProfile.displayName }} <v-icon size="30">{{ usrProfile.selectedBadge }}</v-icon>
           </span>
-          <UserComments :userId="user" />
+          <UserComments :usrProfile="usrProfile" />
         </v-col>
       </v-row>
     </v-container>
@@ -66,21 +66,21 @@ export default {
     UserPostComp,
     UserComments
 },
+props: ["user"],
   data() {
     return {
-      user: {},
-      myself: {},
+      usrProfile: {},
     };
   },
   created() {
-      axios.get(`${process.env.VUE_APP_URI}login/whoami`, { headers: { Authorization: localStorage.getItem("token")} })
-      .then(res => {
-          this.myself = res.data.user;
-      });
+      // axios.get(`${process.env.VUE_APP_URI}login/whoami`, { headers: { Authorization: localStorage.getItem("token")} })
+      // .then(res => {
+      //     this.myself = res.data.user;
+      // });
     axios
       .get(`${process.env.VUE_APP_URI}profile/user/${this.$route.params.username}`)
       .then((res) => {
-        this.user = res.data;
+        this.usrProfile = res.data;
       });
   },
 };

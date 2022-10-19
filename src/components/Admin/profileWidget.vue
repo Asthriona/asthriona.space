@@ -181,7 +181,7 @@ export default {
         .post(
           `${process.env.VUE_APP_URI}admin/ban`,
           {
-            userId: this.user.userId,
+            id: this.user.id,
             reason: this.banReason,
           },
           {
@@ -210,7 +210,7 @@ export default {
         .post(
           `${process.env.VUE_APP_URI}admin/unban`,
           {
-            userId: this.user.userId,
+            id: this.user.id,
           },
           {
             headers: { Authorization: localStorage.getItem("token") },
@@ -233,7 +233,7 @@ export default {
         .post(
           `${process.env.VUE_APP_URI}admin/delete`,
           {
-            userId: this.user.id,
+            id: this.user.id,
           },
           {
             headers: { Authorization: localStorage.getItem("token") },
@@ -255,7 +255,7 @@ export default {
         .post(
           `${process.env.VUE_APP_URI}admin/verify`,
           {
-            userId: this.user.userId,
+            id: this.user.id,
           },
           {
             headers: { Authorization: localStorage.getItem("token") },
@@ -277,7 +277,7 @@ export default {
         .post(
           `${process.env.VUE_APP_URI}admin/unverify`,
           {
-            userId: this.user.userId
+            id: this.user.id
           },
           {
             headers: { Authorization: localStorage.getItem("token") },
@@ -339,7 +339,7 @@ export default {
         .post(
           `${process.env.VUE_APP_URI}admin/admin`,
           {
-            userId: this.user.userId,
+            id: this.user.id,
           },
           {
             headers: { Authorization: localStorage.getItem("token") },
@@ -361,7 +361,7 @@ export default {
         .post(
           `${process.env.VUE_APP_URI}admin/unadmin`,
           {
-            userId: this.user.userId,
+            id: this.user.id,
           },
           {
             headers: { Authorization: localStorage.getItem("token") },

@@ -43,13 +43,13 @@
           <span class="text-center display-1">
             Latest post by {{ user.displayName }} <v-icon size="30">{{ user.selectedBadge }}</v-icon>
           </span>
-          <UserPostComp :userId="user" />
+          <UserPostComp :usrProfile="user" />
         </v-col>
         <v-col cols="12">
           <span class="text-center display-1">
             Latest comments by {{ user.displayName }} <v-icon size="30">{{ user.selectedBadge }}</v-icon>
           </span>
-          <UserComments :userId="user" />
+          <UserComments :usrProfile="user" />
         </v-col>
       </v-row>
     </v-container>

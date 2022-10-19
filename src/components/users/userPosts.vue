@@ -18,7 +18,7 @@
                                 {{ post.description }}
                             </v-card-text>
                             <v-card-actions>
-                                <v-btn text @click="readPost(post.slug)">
+                                <v-btn text :to="`/blog/${post.slug}`">
                                 Read more
                                 </v-btn>
                             </v-card-actions>
@@ -26,7 +26,7 @@
                         </v-col>
                 </v-col>
                 <v-col cols="12" v-else>
-                    <h1>{{ userId.displayName }} has no post.</h1>
+                    <h1>{{ usrProfile.displayName }} has no post.</h1>
                 </v-col>
             </v-row>
         </v-container>
@@ -37,19 +37,29 @@
 import axios from 'axios';
 export default {
     name: "UserPostsComp",
-    props: ['userId'],
+    props: ['usrProfile'],
     data() {
         return {
             posts: [],
         };
     },
     mounted() {
-        const getUserId = this.userId.id ? this.userId.id : this.userId.userId;
-    axios.get(`${process.env.VUE_APP_URI}profile/posts/${getUserId}`)
-    .then((res) => {
-      this.posts = res.data;
-      this.postsLoading = false;
-    })
+        setTimeout(() => {
+            this.getUserPosts();
+        }, 1000);
+  },
+  methods: {
+    getUserPosts() {
+        axios.get(`${process.env.VUE_APP_URI}profile/posts/${this.usrProfile.id}`)
+        .then((res) => {
+            this.posts = res.data;
+            this.postsLoading = false;
+        })
+        .catch((err) => {
+            console.log(err);
+            this.postsLoading = false;
+        });
+        },
+    }
   }
-}
 </script>
