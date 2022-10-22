@@ -34,7 +34,17 @@ export default {
     gatewayError: false
   }),
   created() {
-    axios
+    this.getUser();
+    setInterval(() => {
+      console.log("Checking for user changes...");
+      this.getUser();
+    }, 10000);
+    // vuetify darkmode
+    this.$vuetify.theme.dark = true;
+  },
+  methods: {
+    getUser() {
+      axios
       .get(`${process.env.VUE_APP_URI}login/whoami`, {
         headers: { Authorization: localStorage.getItem("token") },
       })
@@ -53,10 +63,7 @@ export default {
         this.user = null;
         this.gatewayError = true;
       });
-    // vuetify darkmode
-    this.$vuetify.theme.dark = true;
-  },
-  methods: {
+    },
     updateUser() {
       axios
         .get(`${process.env.VUE_APP_URI}login/whoami`, {
