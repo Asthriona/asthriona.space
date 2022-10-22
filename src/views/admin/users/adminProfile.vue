@@ -19,14 +19,24 @@
                 label="Username"
                 outlined
                 dense
-                readonly
+                append-icon="mdi-pencil"
+                @click:append="editUsername()"
               ></v-text-field>
                   <v-text-field
                   v-model="user.displayName"
                   label="Display Name"
                   outlined
                   dense
-                  readonly
+                  append-icon="mdi-pencil"
+                  @click:append="editDisplayName()"
+                  ></v-text-field>
+                  <v-text-field
+                  v-model="user.discriminator"
+                  label="Discriminator"
+                  outlined
+                  dense
+                  :append-icon="discrimLoading ? 'mdi-loading' : 'mdi-pencil'"
+                  @click:append="editDiscriminator()"
                   ></v-text-field>
                   <v-text-field
                   v-model="user.email"
@@ -142,6 +152,7 @@ export default {
       user: {},
       roles: "",
       isbanned: false,
+      discrimLoading: false,
     };
   },
   created() {
@@ -153,6 +164,7 @@ export default {
   },
   methods: {
     getUser() {
+      if(this.user) this.user = {};
       axios
         .get(`${process.env.VUE_APP_URI}admin/user/${this.$route.params.id}`, {
           headers: { Authorization: localStorage.getItem("token") },
@@ -184,7 +196,59 @@ export default {
           .then((res) => {
             this.me = res.data.user;
           });
-      }
+      },
+      editDisplayName() {
+        axios
+          .patch(
+            `${process.env.VUE_APP_URI}admin/user/${this.$route.params.id}`,
+            {
+              displayName: this.user.displayName,
+            },
+            {
+              headers: { Authorization: localStorage.getItem("token") },
+            }
+          )
+          .then((res) => {
+            console.log(res.data);
+            this.getUser();
+          });
+      },
+      editUsername() {
+        axios
+          .patch(
+            `${process.env.VUE_APP_URI}admin/user/${this.$route.params.id}`,
+            {
+              username: this.user.username,
+            },
+            {
+              headers: { Authorization: localStorage.getItem("token") },
+            }
+          )
+          .then((res) => {
+            console.log(res.data);
+            this.getUser();
+          });
+      },
+      editDiscriminator() {
+        this.discrimLoading = true;
+        axios
+          .patch(
+            `${process.env.VUE_APP_URI}admin/user/${this.$route.params.id}`,
+            {
+              discriminator: this.user.discriminator,
+            },
+            {
+              headers: { Authorization: localStorage.getItem("token") },
+            }
+          )
+          .then((res) => {
+            console.log(res.data);
+            setTimeout(() => {
+              this.getUser();
+              this.discrimLoading = false;
+            }, 1000);
+          });
+      },
   },
 };
 </script>
