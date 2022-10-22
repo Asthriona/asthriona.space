@@ -72,7 +72,7 @@ export default {
         .then((res) => {
           this.user = res.data.user;
           console.log("User updated... refreshing...");
-          this.$router.go();
+          // this.$router.go();
         })
         .catch(() => {
           this.user = null;
