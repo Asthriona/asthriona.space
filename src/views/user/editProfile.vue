@@ -10,41 +10,18 @@
     <v-container>
       <v-row>
         <v-col cols="3" cols-sm="12">
-          <v-card title="Update Avatar" max-width="240">
+          <v-card title="Update Avatar">
             <v-img :src="user.avatar"></v-img>
             <v-card-text>
               <v-form>
-                <!-- upload file -->
+                <!-- upload file avatar -->
                 <v-file-input
                   v-model="file"
                   label="Upload a new avatar"
                   prepend-icon="mdi-camera"
                   color="primary"
                 ></v-file-input>
-                <!-- <v-text-field
-                  v-model="file"
-                  label="https://imgup.asthriona.com/i/eWI5UmUgsO"
-                ></v-text-field> -->
-                <v-btn color="primary" @click="updateAvatar">Update</v-btn>
-                <br />
-                <small
-                  >For now we cannot store your avatar for you. you will have to
-                  upload it somewhere and past the link. you can use
-                  <a
-                    href="https://imgup.asthriona.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >Asthriona imgup</a
-                  >
-                  or
-                  <a
-                    href="https://imgur.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >imgur</a
-                  >
-                  for exemple.</small
-                >
+                <v-btn @click="updateAvatar" :disabled="!file">Upload</v-btn>
               </v-form>
             </v-card-text>
           </v-card>
@@ -130,6 +107,23 @@
             </v-card-text>
           </v-card>
         </v-col>
+        <v-col cols="3" v-if="user.profileBanner">
+          <v-card>
+            <v-img :src="user.profileBanner"></v-img>
+            <v-card-title>Updload new Banner</v-card-title>
+            <v-card-text>
+              <v-form>
+                <v-file-input
+                  v-model="banner"
+                  label="Upload a new Banner"
+                  prepend-icon="mdi-camera"
+                  color="primary"
+                ></v-file-input>
+                <v-btn @click="updateBanner" :disabled="!banner">Upload</v-btn>
+              </v-form>
+            </v-card-text>
+          </v-card>
+        </v-col>
       </v-row>
     </v-container>
   </div>
@@ -146,6 +140,7 @@ export default {
       badges: [],
       selectedBadge: {},
       file: null,
+      banner: null,
       alert: {
         type: "",
         text: "",
@@ -196,12 +191,33 @@ export default {
       }).then(() => {
         this.alert.type = "success";
         this.alert.text = "Avatar updated";
+        this.user.avatar = URL.createObjectURL(this.file);
         // emit event to update avatar in app.vue
-        this.$emit("updateUser");
+        // this.$emit("updateUser");
       }).catch((error) => {
         console.log(error);
         this.alert.type = "error";
         this.alert.text = error.response.data.message;
+      });
+    },
+    updateBanner(event) {
+      event.preventDefault();
+      const formData = new FormData();
+      formData.append("avatar", this.banner);
+      axios.post(`${process.env.VUE_APP_URI}profile/update/banner`, formData, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+          "Content-Type": "multipart/form-data",
+        },
+      }).then(() => {
+        this.alert.type = "success";
+        this.alert.text = "Banner updated";
+        // emit event to update banner in app.vue
+        this.$emit("updateUser");
+      }).catch((error) => {
+        console.log(error);
+        this.alert.type = "error";
+        this.alert.text = error.response.data.message || "An error Happened.";
       });
     },
     updateProfile(e) {
