@@ -15,8 +15,8 @@ import AdminBlogCreate from '../views/admin/AdminBlogCreate.vue'
 import AdminBlogUpdate from '../views/admin/AdminBlogUpdate.vue'
 import AdminData from '../views/admin/WebData.vue'
 import AdminUsers from '../views/admin/users/adminUsers.vue'
+import AdminUserProfile from '../views/admin/users/adminProfile.vue'
 import TweetHome from '../views/tweet/tweetHome.vue'
-import testForm from '../views/test/test.vue'
 
 // Errors
 import NotFound from '../views/errors/404.vue'
@@ -96,6 +96,11 @@ const routes = [
     component: AdminUsers
   },
   {
+    path: '/admin/users/:id',
+    name: 'Admin-Users',
+    component: AdminUserProfile
+  },
+  {
     path: '/tweet',
     name: 'Tweet',
     component: TweetHome
@@ -107,12 +112,6 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  // to delete
-  {
-    path: '/form',
-    name: 'Form',
-    component: testForm
   },
   // 404
   {
