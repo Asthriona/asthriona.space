@@ -82,6 +82,7 @@
         </v-col>
         <v-col cols="12">
           <h1>Anime</h1>
+          Last Activity: <a :href="lastAnime.url" target="_blank" rel="noopener noreferrer">{{ lastAnime.text }}</a>
           </v-col>
           <v-col
           v-for="anime in animes"
@@ -186,6 +187,7 @@ export default {
           img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20680-kY9PLE1oYArQ.png"
         }
       ],
+      lastAnime: {},
       rdmText: [
         "/*This line is disabled*/",
         "死にたい",
@@ -223,6 +225,48 @@ export default {
     //   { name: 'og:locale', content: 'en_US' },
     //   ]
     // },
+    mounted() {
+      this.anilist()
+    },
+    methods: {
+      anilist() {
+        axios.post('https://graphql.anilist.co', {
+      query: `
+      query{
+        Page(perPage: 10) {
+          activities(userId: 63103, sort: ID_DESC) {
+            ... on ListActivity {
+              id
+              progress
+              status
+              media {
+                id
+                type
+                episodes
+                siteUrl
+                title {
+                  english
+                }
+              }
+            }
+          }
+        }
+      }`
+      ,
+      variables: {
+        id: 101386
+      }
+    })
+    .then(res => {
+      // console.log(res.data.data.Page.activities)
+      const anime = res.data.data.Page.activities[0];
+      const status = res.data.data.Page.activities[0].status;
+      const CapitalizedStatus = status.charAt(0).toUpperCase() + status.slice(1);
+      this.lastAnime.text = `${CapitalizedStatus} ${anime.media.title.english} (${anime.progress == null ? anime.media.episodes : anime.progress.slice(" ")[0] }/${anime.media.episodes})`;
+      this.lastAnime.url = anime.media.siteUrl;
+    })
+      }
+    },
   created() {
     // add twitter card to head
     document.head.innerHTML += `<meta name="twitter:card" content="summary" />`;
