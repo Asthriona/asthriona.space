@@ -82,7 +82,8 @@
         </v-col>
         <v-col cols="12">
           <h1>Anime</h1>
-          Last Activity: <a :href="lastAnime.url" target="_blank" rel="noopener noreferrer">{{ lastAnime.text }}</a>
+          Last activity: <code><span class="lastAnime"></span></code> <br />
+          Anilist Profile: <a href="https://anilist.co/user/Asthriona/" target="_blank" rel="noopener noreferrer">Asthriona</a>
           </v-col>
           <v-col
           v-for="anime in animes"
@@ -206,31 +207,8 @@ export default {
       },
     };
   },
-    // metaInfo: {
-    //   meta: [
-    //     // twitter card
-    //   { name: 'twitter:card', content: 'summary' },
-    //   { name: 'twitter:site', content: '@Asthriona' },
-    //   { name: 'twitter:title', content: 'Asthriona.space' },
-    //   { name: 'twitter:description', content: 'a place for random stuff.' },
-    //   { name: 'twitter:image', content: 'https://pbs.twimg.com/profile_images/1478732294659706880/Bdqut4ya_400x400.jpg' },
-    //   { name: 'twitter:creator', content: '@Asthriona' },
-    //   // facebook card
-    //   { name: 'og:title', content: 'Asthriona.space' },
-    //   { name: 'og:description', content: 'a place for random stuff.' },
-    //   { name: 'og:image', content: 'https://pbs.twimg.com/profile_images/1478732294659706880/Bdqut4ya_400x400.jpg' },
-    //   { name: 'og:url', content: 'https://asthriona.space' },
-    //   { name: 'og:site_name', content: 'Asthriona.space' },
-    //   { name: 'og:type', content: 'website' },
-    //   { name: 'og:locale', content: 'en_US' },
-    //   ]
-    // },
     mounted() {
-      this.anilist()
-    },
-    methods: {
-      anilist() {
-        axios.post('https://graphql.anilist.co', {
+      axios.post('https://graphql.anilist.co', {
       query: `
       query{
         Page(perPage: 10) {
@@ -257,33 +235,50 @@ export default {
         id: 101386
       }
     })
-    .then(res => {
-      // console.log(res.data.data.Page.activities)
+    .then((res) => {
+      console.log(res.data.data)
       const anime = res.data.data.Page.activities[0];
       const status = res.data.data.Page.activities[0].status;
-      const CapitalizedStatus = status.charAt(0).toUpperCase() + status.slice(1);
-      this.lastAnime.text = `${CapitalizedStatus} ${anime.media.title.english} (${anime.progress == null ? anime.media.episodes : anime.progress.slice(" ")[0] }/${anime.media.episodes})`;
-      this.lastAnime.url = anime.media.siteUrl;
+      const lastText = `${status.charAt(0).toUpperCase() + status.slice(1)} ${anime.media.title.english} (${anime.progress == null ? anime.media.episodes : anime.progress.slice(" ")[0] }/${anime.media.episodes})`;
+      const lastUrl = anime.media.siteUrl;
+      // get element with class "lastAnime"
+      const lastAnime = document.querySelector(".lastAnime");
+      // add a:blank to the element
+      const a = document.createElement("a");
+      a.href = lastUrl;
+      a.innerText = lastText;
+      lastAnime.appendChild(a);
+      return this.lastAnime;
     })
+    .catch((err) => {
+      console.log(err);
+      const lastAnime = document.querySelector(".lastAnime");
+      // set text to the element
+      lastAnime.innerText = `Yikes, An error happened :c ${err.response.status} ${err.response.statusText}`;
+    })
+    },
+    methods: {
+      anilist() {
+        
       }
     },
-  created() {
-    // add twitter card to head
-    document.head.innerHTML += `<meta name="twitter:card" content="summary" />`;
-    document.head.innerHTML += `<meta name="twitter:site" content="@Asthriona" />`;
-    document.head.innerHTML += `<meta name="twitter:title" content="Asthriona.space" />`;
-    document.head.innerHTML += `<meta name="twitter:description" content="a place for random stuff." />`;
-    document.head.innerHTML += `<meta name="twitter:image" content="https://pbs.twimg.com/profile_images/1478732294659706880/Bdqut4ya_400x400.jpg" />`;
-    document.head.innerHTML += `<meta name="twitter:creator" content="@Asthriona" />`;
+  // created() {
+  //   // add twitter card to head
+  //   document.head.innerHTML += `<meta name="twitter:card" content="summary" />`;
+  //   document.head.innerHTML += `<meta name="twitter:site" content="@Asthriona" />`;
+  //   document.head.innerHTML += `<meta name="twitter:title" content="Asthriona.space" />`;
+  //   document.head.innerHTML += `<meta name="twitter:description" content="a place for random stuff." />`;
+  //   document.head.innerHTML += `<meta name="twitter:image" content="https://pbs.twimg.com/profile_images/1478732294659706880/Bdqut4ya_400x400.jpg" />`;
+  //   document.head.innerHTML += `<meta name="twitter:creator" content="@Asthriona" />`;
 
-    this.chosenLine =
-      this.rdmText[Math.floor(Math.random() * this.rdmText.length)];
-    axios.get('https://api.github.com/users/Asthriona/events')
-    .then(res => {
-      this.gitHub.commits = res.data[0].payload;
-      this.gitHub.repo = res.data[0].repo;
-    })
-  },
+  //   this.chosenLine =
+  //     this.rdmText[Math.floor(Math.random() * this.rdmText.length)];
+  //   axios.get('https://api.github.com/users/Asthriona/events')
+  //   .then(res => {
+  //     this.gitHub.commits = res.data[0].payload;
+  //     this.gitHub.repo = res.data[0].repo;
+  //   })
+  // },
 };
 </script>
 
