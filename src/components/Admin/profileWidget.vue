@@ -267,9 +267,9 @@ export default {
           this.alert.text = "Account verified";
         })
         .catch((error) => {
-          console.log(error);
           this.alert.type = "error";
           this.alert.text = "Error verifying account";
+          return error;
         });
     },
     unVerify() {
