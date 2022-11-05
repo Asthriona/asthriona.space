@@ -33,7 +33,7 @@
         </v-col>
         <!-- Admin Widget -->
         <div class="admin d-flex justify-center" v-if="user.isAdmin">
-        <AdminWidget :usrProfile="usrProfile" :user="user"/>
+        <AdminWidget :user="usrProfile" :myself="user"/>
         </div>
       </v-row>
             <v-row>
