@@ -1,14 +1,14 @@
 <template>
   <div class="loginComp">
     <v-container>
-      <v-row>
-        <v-col cols="5" v-if="error.type">
+      <v-row align="center" justify="center">
+        <v-col cols="4" v-if="error.type">
             <v-alert :type="error.type">
                 <p>{{ error.message }}</p>
             </v-alert>
             </v-col>
             <v-col cols="12" v-if="error.type"></v-col>
-        <v-col cols="5">
+        <v-col cols="4" class="mt-4">
             <v-form>
           <v-text-field
             label="Email"

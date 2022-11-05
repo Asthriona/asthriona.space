@@ -1,7 +1,7 @@
 <template>
   <div class="register">
     <v-container>
-      <v-row v-if="error">
+      <v-row v-if="error" align="center" justify="center">
         <v-col cols="12" class="text-center" v-if="error.type">
           <v-alert :type="error.type" icon="mdi-alert-circle">
             <span class="headline">
@@ -13,7 +13,7 @@
           </v-alert>
         </v-col>
       </v-row>
-      <v-row v-if="success">
+      <v-row v-if="success" align="center" justify="center">
         <v-col cols="12" class="text-center">
           <v-alert type="success" icon="mdi-check-circle">
             <span class="headline">
@@ -26,7 +26,7 @@
           </v-alert>
         </v-col>
       </v-row>
-      <v-row>
+      <v-row align="center" justify="center">
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field
             v-model="displayName"

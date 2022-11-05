@@ -98,4 +98,8 @@ export default {
 .avatarBanned {
   filter: grayscale(100%);
 }
+.no-link {
+  text-decoration: none;
+  color: #fff !important;
+}
 </style>
