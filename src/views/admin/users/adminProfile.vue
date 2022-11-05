@@ -134,7 +134,7 @@
         <v-card class="ml-4">
           <v-card-title>Verification</v-card-title>
           <v-card-text>
-            <v-btn color="error" outlined>Unverify</v-btn> <v-btn class="ml-2" outlined color="success">Verify</v-btn>
+            <v-btn color="error" @click="unVerifyAccount()" outlined>Unverify</v-btn> <v-btn class="ml-2" @click="VerifyAccount()" outlined color="success">Verify</v-btn>
           </v-card-text>
         </v-card>
       </v-row>
@@ -247,6 +247,41 @@ export default {
               this.getUser();
               this.discrimLoading = false;
             }, 1000);
+          });
+      },
+      VerifyAccount() {
+        axios
+          .post(
+            `${process.env.VUE_APP_URI}admin/verify`,
+            {
+              id: this.user.id,
+            },
+            {
+              headers: { Authorization: localStorage.getItem("token") },
+            }
+          )
+          .then((res) => {
+            console.log(res.data);
+            this.getUser();
+          });
+      },
+      unVerifyAccount() {
+        axios
+          .post(
+            `${process.env.VUE_APP_URI}admin/unverify`,
+            {
+              id: this.user.id,
+            },
+            {
+              headers: { Authorization: localStorage.getItem("token") },
+            }
+          )
+          .then((res) => {
+            console.log(res.data);
+            this.getUser();
+          })
+          .catch((err) => {
+            console.log(err.response.data);
           });
       },
   },
