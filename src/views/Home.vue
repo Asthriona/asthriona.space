@@ -6,8 +6,9 @@
     <div class="head-banner">
       <div class="header-content">
         <v-col cols="12" class="avatar d-flex justify-center">
-          <v-avatar size="250" class="mt-4">
+          <v-avatar size="250" class="mt-4" color="black">
             <v-img
+            style="opacity: 0.3;"
               src="https://pbs.twimg.com/profile_images/1523324400245825537/zQiBhAZV_400x400.jpg"
             ></v-img>
           </v-avatar>
@@ -304,11 +305,12 @@ export default {
   width: 100%;
   -webkit-text-stroke-width: 3px;
   -webkit-text-stroke-color: black;
+  filter: grayscale(100%);
 }
 .font-logo {
   font-family: Asthriona !important;
-  -webkit-text-stroke-width: 3px;
-  -webkit-text-stroke-color: black;
+  color: #000;
+  -webkit-text-stroke: 3px #fff;
 }
 .randomText {
   -webkit-text-stroke-width: 1px;
@@ -317,5 +319,8 @@ export default {
 .muted {
   color: #999;
   font-size: 0.8em;
+}
+img, .v-card {
+  filter: grayscale(100%);
 }
 </style>
