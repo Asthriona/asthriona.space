@@ -320,7 +320,5 @@ export default {
   color: #999;
   font-size: 0.8em;
 }
-img, .v-card {
-  filter: grayscale(100%);
-}
+
 </style>
