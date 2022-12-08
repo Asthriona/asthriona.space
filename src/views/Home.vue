@@ -305,7 +305,6 @@ export default {
   width: 100%;
   -webkit-text-stroke-width: 3px;
   -webkit-text-stroke-color: black;
-  filter: grayscale(100%);
 }
 .font-logo {
   font-family: Asthriona !important;
