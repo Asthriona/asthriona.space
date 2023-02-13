@@ -32,7 +32,7 @@
         <v-col cols="12" class="d-flex justify-center">
         </v-col>
         <!-- Admin Widget -->
-        <div class="admin d-flex justify-center" v-if="user.isAdmin">
+        <div class="admin d-flex justify-center" v-if="user !== null && user.isAdmin">
         <AdminWidget :user="usrProfile" :myself="user"/>
         </div>
       </v-row>
