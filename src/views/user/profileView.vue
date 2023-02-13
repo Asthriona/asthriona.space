@@ -15,7 +15,7 @@
           <h1>
             {{ usrProfile.displayName }}
             <v-icon
-              > {{ usrProfile.selectedBadge }} </v-icon
+              > {{ usrProfile.selectedBadge || "" }} </v-icon
             >
           </h1>
         </v-col>
@@ -37,12 +37,12 @@
         </div>
       </v-row>
             <v-row>
-        <v-col cols="12">
+        <!-- <v-col cols="12">
           <span class="text-center display-1">
-            Latest post by {{ usrProfile.displayName }} <v-icon size="30">{{ user.selectedBadge }}</v-icon>
+            Latest post by {{ usrProfile.displayName }} <v-icon size="30">{{ user.selectedBadge || "" }}</v-icon>
           </span>
           <UserPostComp :usrProfile="usrProfile" />
-        </v-col>
+        </v-col> -->
         <!-- <v-col cols="12">
           <span class="text-center display-1">
             Latest comments by {{ usrProfile.displayName }} <v-icon size="30">{{ usrProfile.selectedBadge }}</v-icon>
@@ -57,13 +57,13 @@
 <script>
 import axios from "axios";
 import AdminWidget from "../../components/Admin/profileWidget.vue"
-import UserPostComp from "../../components/users/userPosts.vue";
+// import UserPostComp from "../../components/users/userPosts.vue";
 // import UserComments from "../../components/users/userComments.vue";
 export default {
   name: "UserProfile",
   components: {
     AdminWidget,
-    UserPostComp,
+    // UserPostComp,
     // UserComments
 },
 props: ["user"],
@@ -81,6 +81,7 @@ props: ["user"],
       .get(`${process.env.VUE_APP_URI}profile/user/${this.$route.params.username}`)
       .then((res) => {
         this.usrProfile = res.data;
+        console.log(res.data)
       });
   },
 };
