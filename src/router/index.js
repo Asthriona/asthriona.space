@@ -17,6 +17,7 @@ import AdminData from '../views/admin/WebData.vue'
 import AdminUsers from '../views/admin/users/adminUsers.vue'
 import AdminUserProfile from '../views/admin/users/adminProfile.vue'
 import TweetHome from '../views/tweet/tweetHome.vue'
+import TweetView from '../views/tweet/tweetView.vue'
 
 // Errors
 import NotFound from '../views/errors/404.vue'
@@ -104,6 +105,11 @@ const routes = [
     path: '/tweet',
     name: 'Tweet',
     component: TweetHome
+  },
+  {
+    path: '/tweet/:username/:id',
+    name: 'SingleTweet',
+    component: TweetView
   },
   {
     path: '/about',
