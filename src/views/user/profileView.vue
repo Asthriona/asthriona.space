@@ -43,12 +43,12 @@
           </span>
           <UserPostComp :usrProfile="usrProfile" />
         </v-col>
-        <v-col cols="12">
+        <!-- <v-col cols="12">
           <span class="text-center display-1">
             Latest comments by {{ usrProfile.displayName }} <v-icon size="30">{{ usrProfile.selectedBadge }}</v-icon>
           </span>
           <UserComments :usrProfile="usrProfile" />
-        </v-col>
+        </v-col> -->
       </v-row>
     </v-container>
   </div>
@@ -58,13 +58,13 @@
 import axios from "axios";
 import AdminWidget from "../../components/Admin/profileWidget.vue"
 import UserPostComp from "../../components/users/userPosts.vue";
-import UserComments from "../../components/users/userComments.vue";
+// import UserComments from "../../components/users/userComments.vue";
 export default {
   name: "UserProfile",
   components: {
     AdminWidget,
     UserPostComp,
-    UserComments
+    // UserComments
 },
 props: ["user"],
   data() {

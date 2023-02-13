@@ -45,12 +45,12 @@
           </span>
           <UserPostComp :usrProfile="user" />
         </v-col>
-        <v-col cols="12">
+        <!-- <v-col cols="12">
           <span class="text-center display-1">
             Latest comments by {{ user.displayName }} <v-icon size="30">{{ user.selectedBadge }}</v-icon>
           </span>
           <UserComments :usrProfile="user" />
-        </v-col>
+        </v-col> -->
       </v-row>
     </v-container>
   </div>
@@ -58,13 +58,13 @@
 
 <script>
 import UserPostComp from '@/components/users/userPosts.vue';
-import UserComments from '../../components/users/userComments.vue';
+// import UserComments from '../../components/users/userComments.vue';
 export default {
   name: "OwnProfile",
   props: ["user"],
   components: {
     UserPostComp,
-    UserComments
+    // UserComments
 },
   methods: {
   logout() {
