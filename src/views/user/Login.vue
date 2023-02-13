@@ -23,6 +23,7 @@
 <script>
 import RegisterComp from '@/components/Login/RegisterComp'
 import LoginComp from '@/components/Login/LoginComp'
+import axios from 'axios';
 export default {
     name: 'userSection',
     data() {
@@ -37,7 +38,18 @@ export default {
     },
     beforeCreate() {
         if (localStorage.getItem('token')) {
-            window.location.href = '/';
+            // check if token is valid
+            axios.get(`${process.env.VUE_APP_URI}login/whoami`, {
+        headers: { Authorization: localStorage.getItem("token") },
+            })
+            .then((res) => {
+                if (res.data.user) {
+                    console.log(res.data)
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
         }
     }
 }
