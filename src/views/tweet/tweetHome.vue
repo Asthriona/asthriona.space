@@ -8,7 +8,8 @@
                 <v-col cols="12" sm="12" md="12" lg="12">
                     <p class="text-center muted">Updated: {{ updatedAt }}</p>
                     <div class="display-1 text-center">Latest Posts</div>
-                    <timeline :tweets="tweets" :user="user" />
+                    <timeline v-if="user !== null" :tweets="tweets" :user="user" />
+                    <timelineLogout v-else :tweets="tweets" />
                 </v-col>
             </v-row>
         </v-container>
@@ -19,6 +20,7 @@
 import axios from 'axios';
 import sendTweet from '@/components/tweet/sendTweet.vue';
 import timeline from '@/components/tweet/timeline.vue';
+import timelineLogout from '@/components/tweet/timelineLogout.vue';
 export default {
     name: "tweetHome",
     props: ["user"],
@@ -31,6 +33,7 @@ export default {
     components: {
         sendTweet,
         timeline,
+        timelineLogout
     },
     beforeMount() {
         this.getTweets();
