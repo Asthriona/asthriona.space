@@ -3,7 +3,7 @@
         <v-container>
             <v-row>
                 <v-col cols="12" sm="12" md="12" lg="12">
-                    <send-tweet :user="user" />
+                    <send-tweet v-if="user !== null" :user="user" />
                 </v-col>
                 <v-col cols="12" sm="12" md="12" lg="12">
                     <p class="text-center muted">Updated: {{ updatedAt }}</p>
