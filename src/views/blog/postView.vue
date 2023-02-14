@@ -222,6 +222,7 @@ export default {
           .post(
             `${process.env.VUE_APP_URI}blog/comments/asthriona.space/${this.$route.params.slug}`,
             {
+              postId: this.post._id,
               content: this.newComment.content,
             },
             { headers: { Authorization: localStorage.getItem("token") } }
