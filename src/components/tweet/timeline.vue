@@ -27,9 +27,30 @@
                 <p v-html="tweet.content"></p>
               </div>
               <div class="content-action">
-                <v-btn class="disabled" icon disabled>
+                <v-dialog
+                v-model="dialog"
+                width="500">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn icon v-bind="attrs" v-on="on">
                   <v-icon>mdi-comment-outline</v-icon>
                 </v-btn>
+              </template>
+              <v-card>
+                <v-card-title>
+                  <span>Reply to this Tweet</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-textarea
+                  v-model="reply"
+                  label="Reply"
+                  placeholder="What's happening?"
+                  outlined
+                  rows="5"
+                  />
+                  <span class="right"><v-btn small outlined @click="reply(tweet.id)">Send!</v-btn></span>
+                </v-card-text>
+              </v-card>
+            </v-dialog>
                 <v-btn class="disabled" icon disabled>
                   <v-icon>mdi-repeat</v-icon>
                 </v-btn>
@@ -41,7 +62,7 @@
                 </v-btn>
               </div>
               <div class="tweet-infos">
-                <span class="muted">{{ tweet.createdAt }}</span>
+                <span class="muted"><router-link :to="`tweet/${tweet.author.username}/${tweet.id}`" class="noLink">{{ tweet.createdAt }}</router-link></span>
               </div>
               <div class="tweet-tools" v-if="tweet.author.id == user.id">
                 <!-- menu to delete tweet -->
@@ -72,6 +93,12 @@
 export default {
   name: "timeline",
   props: ["tweets", "user"],
+  data() {
+    return {
+      dialog: false,
+      reply: "",
+    };
+  },
 };
 </script>
 
