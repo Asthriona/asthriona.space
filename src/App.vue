@@ -35,10 +35,12 @@ export default {
   }),
   created() {
     this.getUser();
-    setInterval(() => {
+    if(this.user.length > 0) {
+      setInterval(() => {
       console.log("Checking for user changes...");
       this.getUser();
     }, 10000);
+    }
     // vuetify darkmode
     this.$vuetify.theme.dark = true;
   },
