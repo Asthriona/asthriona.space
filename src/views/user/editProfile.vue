@@ -179,6 +179,16 @@ export default {
       });
   },
   methods: {
+    updateUser() {
+      this.user = {}
+      axios
+      .get(`${process.env.VUE_APP_URI}login/whoami`, {
+        headers: { Authorization: localStorage.getItem("token") },
+      })
+      .then(res => {
+        this.user = res.data.user
+      })
+    },
     updateAvatar(event) {
       event.preventDefault();
       const formData = new FormData();
@@ -192,6 +202,7 @@ export default {
         this.alert.type = "success";
         this.alert.text = "Avatar updated";
         this.user.avatar = URL.createObjectURL(this.file);
+        this.updateUser();
         // emit event to update avatar in app.vue
         // this.$emit("updateUser");
       }).catch((error) => {
@@ -213,6 +224,7 @@ export default {
         this.alert.type = "success";
         this.alert.text = "Banner updated";
         // emit event to update banner in app.vue
+        this.updateUser();
         this.$emit("updateUser");
       }).catch((error) => {
         console.log(error);
@@ -228,7 +240,6 @@ export default {
         description: this.form.description || this.user.description || "",
         discriminator: this.form.discriminator || this.user.discriminator,
       };
-      console.log(updateForm);
       axios
         .post(`${process.env.VUE_APP_URI}profile/update`, updateForm, {
           headers: { Authorization: localStorage.getItem("token") },
@@ -242,6 +253,7 @@ export default {
           this.user.email = this.form.email;
           this.user.discriminator = this.form.discriminator;
           this.form = {};
+          this.updateUser();
           this.$emit("updateUser");
         })
         .catch((err) => {
@@ -267,6 +279,7 @@ export default {
         .then((res) => {
           this.user.badge = res.data.badge;
           this.selectedBadge = "";
+          this.updateUser();
         })
         .catch((err) => {
           this.alert.text = `${err.response.status || "500"} - ${
@@ -291,6 +304,7 @@ export default {
         .then((res) => {
           this.user.email = res.data.email;
           this.form.email = "";
+          this.updateUser();
         })
         .catch((err) => {
           this.alert.text = `${err.response.status || "500"} - ${
