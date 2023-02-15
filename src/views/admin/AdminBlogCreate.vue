@@ -129,6 +129,10 @@ export default {
                   tags: this.form.tags,
                   isPosted: this.isPosted,
                   authorId: this.user.id,
+              }, {
+                  headers: {
+                      'Authorization': localStorage.getItem('token')
+                  }
               }).then(res => {
                   console.log(res.data)
                     this.alert.type = 'success';
