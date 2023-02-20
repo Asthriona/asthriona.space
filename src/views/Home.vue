@@ -1,103 +1,104 @@
-<template><!-- 
+<!-- 
   Make this page dynamic with projects and everything can be changed at anythime via the gateway.
  -->
-   <div class="home">
-     <div class="head-banner">
-       <div class="header-content">
-         <v-col cols="12" class="avatar d-flex justify-center">
-           <v-avatar size="250" class="mt-4" color="black">
-             <v-img style="opacity: 0.3;"
-               src="https://pbs.twimg.com/profile_images/1523324400245825537/zQiBhAZV_400x400.jpg"></v-img>
-           </v-avatar>
-         </v-col>
-         <span>
-           <div class="display-4 text-center font-logo">Asthriona</div>
-         </span>
-         <span>
-           <div class="display-2 text-center randomText">{{ chosenLine }}</div>
-         </span>
-       </div>
-       <div class="subline">
-         <v-col cols="12" class="d-flex justify-center"> </v-col>
-       </div>
-     </div>
-     <hr />
-     <v-spacer></v-spacer>
-     <v-container>
-       <v-row align="center" justify="center">
-         <v-col cols="6" class="m">
-           <div class="base mt-4 text-center display-1">
-             Welcome to my shitpost place!
-           </div>
-           <div class="Infos mt-4 text-center">
-             <span>
-               <v-icon>mdi-information</v-icon> Information about this space...
-               <span>
-                 <p>
-                   This space is random... I will post pretty much anything that
-                   goes through my head, nothing really serious (I mean about
-                   work). if you are a recruiter or someone who want to work with
-                   me, Please visite my
-                   <a href="asthriona.com">more serious website</a>. also you
-                   should know that both website has been made by myself, from
-                   the ground up.<br />
+<template>
+  <div class="home">
+    <div class="head-banner">
+      <div class="header-content">
+        <v-col cols="12" class="avatar d-flex justify-center">
+          <v-avatar size="250" class="mt-4">
+            <v-img style="opacity: 1;" lazy
+              src="https://pbs.twimg.com/profile_images/1523324400245825537/zQiBhAZV_400x400.jpg"></v-img>
+          </v-avatar>
+        </v-col>
+        <span>
+          <div class="display-4 text-center font-logo">Asthriona</div>
+        </span>
+        <span>
+          <div class="display-2 text-center randomText">{{ chosenLine }}</div>
+        </span>
+      </div>
+      <div class="subline">
+        <v-col cols="12" class="d-flex justify-center"> </v-col>
+      </div>
+    </div>
+    <hr />
+    <v-spacer></v-spacer>
+    <v-container>
+      <v-row align="center" justify="center">
+        <v-col cols="6" class="m">
+          <div class="base mt-4 text-center display-1">
+            Welcome to my shitpost place!
+          </div>
+          <div class="Infos mt-4 text-center">
+            <span>
+              <v-icon>mdi-information</v-icon> Information about this space...
+              <span>
+                <p>
+                  This space is random... I will post pretty much anything that
+                  goes through my head, nothing really serious (I mean about
+                  work). if you are a recruiter or someone who want to work with
+                  me, Please visite my
+                  <a href="asthriona.com">more serious website</a>. also you
+                  should know that both website has been made by myself, from
+                  the ground up.<br />
 
-                   else, welcome! :D Let's be weird together! <br>
-                 </p>
-               </span>
-             </span>
-           </div>
-         </v-col>
-         <v-col cols="12">
-           <h1 class="heading">My Works</h1>
-           I've been last seen working on <a :href="gitHub.repo.url" target="_blank" rel="noopener noreferrer">{{
-             gitHub.repo.name || "Network Error..." }}</a> <code>{{ gitHub.commits.push_id || "null" }}</code>
-         </v-col>
-         <v-col v-for="work in works" :key="work.title" xs="12" sm="6" md="6" lg="3" xl="3">
-           <!-- Works -->
-           <v-card>
-             <v-img :src="work.img" lazy></v-img>
-             <v-card-title>{{ work.title }}</v-card-title>
-             <v-card-text>{{ work.description }}</v-card-text>
-             <v-card-actions>
-               <v-btn :href="work.url" target="_blank" color="primary" dark :disabled="!work.url">
-                 <v-icon>mdi-link</v-icon>
-                 Visit
-               </v-btn>
-             </v-card-actions>
-           </v-card>
-         </v-col>
-         <v-col cols="12">
-           <h1>Anime</h1>
-           In order of preferance. <br />
-           Last activity: <code><span class="lastAnime"></span></code> <br />
-           Anilist Profile: <a href="https://anilist.co/user/Asthriona/" target="_blank"
-             rel="noopener noreferrer">Asthriona</a>
-         </v-col>
-         <v-col v-for="anime in animes" :key="anime.title" xs="12" sm="6" md="6" lg="3" xl="3">
-           <v-card>
-             <v-img :src="anime.img" max-height="450" lazy></v-img>
-             <v-card-title>{{ anime.title }}</v-card-title>
-             <v-card-text>{{ anime.description }}</v-card-text>
-             <v-card-actions>
-               <v-btn :href="anime.url" target="_blank" color="primary" dark :disabled="!anime.url">
-                 <v-icon>mdi-link</v-icon>
-                 Anilist
-               </v-btn>
-             </v-card-actions>
-           </v-card>
-         </v-col>
-         <v-col cols="12" class="mt-4">
-           <h1 class="text-center display-1 mt-4">Asthriona proudly sponsors:</h1>
-           <!-- <p class="muted text-center mb-4">sponsoring for 30 000 yen</p> -->
-           <v-col cols="12" class="d-flex justify-space-around mb-6 mt-6 sponsor">
-             <img src="https://cdn.asthriona.com/static/good-smile-racing.png" height="120px" />
-             <img src="https://cdn.asthriona.com/static/personal-sponsor-2022.png" height="120px" />
-           </v-col>
-         </v-col>
-       </v-row>
-     </v-container>
-   </div>
+                  else, welcome! :D Let's be weird together! <br>
+                </p>
+              </span>
+            </span>
+          </div>
+        </v-col>
+        <v-col cols="12">
+          <h1 class="heading">My Works</h1>
+          I've been last seen working on <a :href="gitHub.repo.url" target="_blank" rel="noopener noreferrer">{{
+            gitHub.repo.name || "Network Error..." }}</a> <code>{{ gitHub.commits.push_id || "null" }}</code>
+        </v-col>
+        <v-col v-for="work in works" :key="work.title" xs="12" sm="6" md="6" lg="3" xl="3">
+          <!-- Works -->
+          <v-card>
+            <v-img :src="work.img" lazy></v-img>
+            <v-card-title>{{ work.title }}</v-card-title>
+            <v-card-text>{{ work.description }}</v-card-text>
+            <v-card-actions>
+              <v-btn :href="work.url" target="_blank" color="primary" dark :disabled="!work.url">
+                <v-icon>mdi-link</v-icon>
+                Visit
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+        <v-col cols="12">
+          <h1>Anime</h1>
+          In order of preferance. <br />
+          Last activity: <code><span class="lastAnime"></span></code> <br />
+          Anilist Profile: <a href="https://anilist.co/user/Asthriona/" target="_blank"
+            rel="noopener noreferrer">Asthriona</a>
+        </v-col>
+        <v-col v-for="anime in animes" :key="anime.title" xs="12" sm="6" md="6" lg="3" xl="3">
+          <v-card>
+            <v-img :src="anime.img" max-height="450" lazy></v-img>
+            <v-card-title>{{ anime.title }}</v-card-title>
+            <v-card-text>{{ anime.description }}</v-card-text>
+            <v-card-actions>
+              <v-btn :href="anime.url" target="_blank" color="primary" dark :disabled="!anime.url">
+                <v-icon>mdi-link</v-icon>
+                Anilist
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+        <v-col cols="12" class="mt-4">
+          <h1 class="text-center display-1 mt-4">Asthriona proudly sponsors:</h1>
+          <!-- <p class="muted text-center mb-4">sponsoring for 30 000 yen</p> -->
+          <v-col cols="12" class="d-flex justify-space-around mb-6 mt-6 sponsor">
+            <img src="https://cdn.asthriona.com/static/good-smile-racing.png" height="120px" />
+            <img src="https://cdn.asthriona.com/static/personal-sponsor-2022.png" height="120px" />
+          </v-col>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
