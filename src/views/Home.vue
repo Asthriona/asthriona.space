@@ -95,7 +95,7 @@
         lg="3"
         xl="2">
             <v-card>
-              <v-img :src="anime.img" lazy></v-img>
+              <v-img :src="anime.img" max-height="450" lazy></v-img>
               <v-card-title>{{ anime.title }}</v-card-title>
               <v-card-text>{{ anime.description }}</v-card-text>
               <v-card-actions>
@@ -245,10 +245,9 @@ export default {
       }
     })
     .then((res) => {
-      console.log(res.data.data)
       const anime = res.data.data.Page.activities[0];
       const status = res.data.data.Page.activities[0].status;
-      const lastText = `${status.charAt(0).toUpperCase() + status.slice(1)} ${anime.media.title.english} (${anime.progress == null ? anime.media.episodes : anime.progress.slice(" ")[0] }/${anime.media.episodes})`;
+      const lastText = `${status.charAt(0).toUpperCase() + status.slice(1)} ${anime.media.title.english} (${anime.progress == null ? anime.media.episodes : anime.progress.split("-")[1].replace(/\s/g, '') }/${anime.media.episodes})`;
       const lastUrl = anime.media.siteUrl;
       // get element with class "lastAnime"
       const lastAnime = document.querySelector(".lastAnime");
@@ -260,7 +259,7 @@ export default {
       return this.lastAnime;
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
       const lastAnime = document.querySelector(".lastAnime");
       // set text to the element
       lastAnime.innerText = `Yikes, An error happened :c ${err.response.status} ${err.response.statusText}`;
