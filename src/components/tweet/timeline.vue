@@ -25,6 +25,9 @@
               </div>
               <div class="content">
                 <p v-html="tweet.content"></p>
+                <div class="test" v-if="tweet.media">
+                  <v-img :src="tweet.media.link" height="500px" contain></v-img>
+                </div>
               </div>
               <div class="content-action">
                 <v-dialog
