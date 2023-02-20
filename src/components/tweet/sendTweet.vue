@@ -3,18 +3,16 @@
         <v-container>
             <v-row align="center" justify="center">
                 <v-col cols="8">
-                    <v-form @submit="sendTweet()" v-model="valid" lazy-validation>
-                    <v-text-field
-                        v-model="tweet"
-                        :counter="280"
-                        :rules="[rules.required, rules.min, rules.max]"
-                        :placeholder="`What's up ${user.displayName}?`"
-                        require
-                    ></v-text-field>
-                    <v-btn color="primary" @click="sendTweet()" :disabled="!valid">
-                        Tweet
-                    </v-btn>
-                </v-form>
+                    <v-form @submit="uploadMedia" v-model="valid" lazy-validation>
+                        <v-text-field v-model="tweet" :counter="280" :rules="[rules.required, rules.min, rules.max]"
+                            :placeholder="`What's up ${user.displayName}?`" require />
+                        <v-form>
+                            <!-- upload file avatar -->
+                            <v-file-input v-model="file" label="Upload a media" prepend-icon="mdi-camera"
+                                color="primary"></v-file-input>
+                            <v-btn @click="uploadMedia">Send</v-btn>
+                        </v-form>
+                    </v-form>
                 </v-col>
             </v-row>
         </v-container>
@@ -27,8 +25,10 @@ export default {
     name: "composeTweet",
     props: ["user"],
     data() {
-        return { 
+        return {
             tweet: "",
+            file: null,
+            uploadProgress: 0,
             valid: false,
             rules: {
                 min: v => v.length >= 0 || 'Min 1 characters',
@@ -37,25 +37,51 @@ export default {
         }
     },
     methods: {
-        sendTweet() {
-            if(!this.tweet) return;
+        uploadMedia(event) {
+            if(this.file) {
+                event.preventDefault();
+                const formData = new FormData();
+                formData.append("file", this.file);
+                console.log("lol?")
+            axios.post(`${process.env.VUE_APP_URI}tweet/media`, formData, {
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "multipart/form-data",
+                },
+            }).then((res) => {
+                console.log(res.data)
+                this.sendTweet(res.data.media.id);
+            }).catch((error) => {
+                console.log(error.response.data);
+            });
+            // this.sendTweet(res.data.);
+            } else {
+                this.sendTweet(null);
+            }
+        },
+        sendTweet(media) {
+            if (!this.tweet || !this.file) return;
             if (this.valid) {
                 axios.post(`${process.env.VUE_APP_URI}tweet/`, {
                     content: this.tweet,
+                    media: [media]
                 }, {
                     headers: {
                         'Authorization': `${localStorage.getItem('token')}`
                     }
                 })
-                .then((res) => {
-                    this.tweet = "";
-                    // remove focus from text field
-                    return res;
-                })
-                .catch((error) => {
-                    console.log(error.response.data);
-                });
-            }else {
+                    .then((res) => {
+                        this.tweet = "";
+                        this.file = null;
+                        // remove focus from text field
+                        this.$refs.tweet.blur();
+
+                        return res;
+                    })
+                    .catch((error) => {
+                        console.log(error.response.data);
+                    });
+            } else {
                 alert('Please fill out the form');
             }
         }
