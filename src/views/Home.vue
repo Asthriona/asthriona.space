@@ -83,6 +83,7 @@
         </v-col>
         <v-col cols="12">
           <h1>Anime</h1>
+          In order of preferance. <br />
           Last activity: <code><span class="lastAnime"></span></code> <br />
           Anilist Profile: <a href="https://anilist.co/user/Asthriona/" target="_blank" rel="noopener noreferrer">Asthriona</a>
           </v-col>
@@ -173,16 +174,16 @@ export default {
           img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx6547-3jWzWyXg34Et.png"
         },
         {
-          title: "Charlotte",
-          description: "The story centers around the special abilities that occur among a small percentage of boys and girls in puberty.",
-          url: "https://anilist.co/anime/20997/Charlotte/",
-          img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx20997-FGhaAtfnXCsH.jpg"
-        },
-        {
           title: "Steins;Gate",
-          description: "Self-proclaimed mad scientist Okabe Rintarou lives in a small room in Akihabara, where he invents \"future gadgets\" with fellow lab members",
+          description: "Self-proclaimed mad scientist Okabe Rintarou lives in Akihabara, where he invents \"future gadgets\" with fellow lab members",
           url: "https://anilist.co/anime/9253/SteinsGate/",
           img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9253-7pdcVzQSkKxT.jpg"
+        },
+        {
+          title: "To your Eternity",
+          description: "In the beginning, an \"orb\" is cast unto Earth. \"It\" can do two things: change into the form of the thing that stimulates \"it\".",
+          url: "https://anilist.co/anime/114535/To-Your-Eternity/",
+          img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx114535-y3NnjexcqKG1.jpg"
         },
         {
           title: "Hitoribocchi",
@@ -191,10 +192,10 @@ export default {
           img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101386-ZtlTugIEuorU.png"
         },
         {
-          title: "Macross Δ",
-          description: "A story about a group of people who are forced to work together to defend the world from a mysterious virus.",
-          url: "https://anilist.co/anime/20680/Macross-/",
-          img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20680-kY9PLE1oYArQ.png"
+          title: "五等分の花嫁",
+          description: "Uesugi Fuutarou, a high school second-year from a poor family, receives a highly appealing offer to work part-time as a tutor.",
+          url: "https://anilist.co/anime/103572/The-Quintessential-Quintuplets/",
+          img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx103572-2MXV30htoCSh.png"
         }
       ],
       lastAnime: {},
