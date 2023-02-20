@@ -87,11 +87,7 @@ export default {
         },
         {
           name: "mdi-github",
-          url: "/",
-        },
-        {
-          name: "mdi-twitter",
-          url: "/",
+          url: "https://github.com/asthriona",
         },
       ],
       longTime: 0,
