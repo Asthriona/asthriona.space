@@ -92,7 +92,7 @@ export default {
     },
     mounted() {
         axios.get(`${process.env.VUE_APP_URI}blog/posts/asthriona.space/${this.$route.params.slug}`, { headers: { 'Authorization': localStorage.getItem('token')}}).then((res) => {
-            this.post = res.data.post;
+            this.post = res.data;
         });
     },
     methods: {
