@@ -94,7 +94,7 @@
 
 <script>
 export default {
-  name: "timeline",
+  name: "timelineComp",
   props: ["tweets", "user"],
   data() {
     return {

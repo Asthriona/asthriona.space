@@ -86,7 +86,7 @@
 <script>
 const axios = require("axios");
 export default {
-  name: "register",
+  name: "registerPage",
   data() {
     return {
       displayName: "",
