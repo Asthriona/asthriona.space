@@ -117,7 +117,7 @@ Location, mail, website, github, name and text will be defined in admin zone. --
 <script>
 import axios from 'axios'
 export default {
-  name: 'About',
+  name: 'AboutPage',
   data() {
     return {
       about: {}

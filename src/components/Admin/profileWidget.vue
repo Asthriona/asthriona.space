@@ -167,6 +167,7 @@ export default {
       banDialog: false,
       unBanDialog: false,
       banReason: "",
+      userUpdate: {},
       alert: {
         type: "",
         text: "",
@@ -189,8 +190,8 @@ export default {
           }
         )
         .then(() => {
-          this.user.isBanned = true;
-          this.user.selectedBadge = 'mdi-shield-off-outline'
+          this.userUpdate.isBanned = true;
+          this.userUpdate.selectedBadge = 'mdi-shield-off-outline'
           this.alert.type = "success";
           this.alert.text = "Account banned";
           this.alert.show = true;
@@ -217,7 +218,7 @@ export default {
           }
         )
         .then(() => {
-          this.user.isBanned = false;
+          this.userUpdate.isBanned = false;
           this.alert.type = "success";
           this.alert.text = "Account unbanned";
           this.unBanDialog = false;
@@ -262,7 +263,7 @@ export default {
           }
         )
         .then(() => {
-          this.user.isVerified = true;
+          this.userUpdate.isVerified = true;
           this.alert.type = "success";
           this.alert.text = "Account verified";
         })
@@ -284,7 +285,7 @@ export default {
           }
         )
         .then(() => {
-          this.user.isVerified = false;
+          this.userUpdate.isVerified = false;
           this.alert.type = "success";
           this.alert.text = "Account unverified";
         })
@@ -304,7 +305,7 @@ export default {
           }
         )
         .then(() => {
-          this.user.isMod = true;
+          this.userUpdate.isMod = true;
           this.alert.type = "success";
           this.alert.text = "Account modded";
         })
@@ -324,7 +325,7 @@ export default {
           }
         )
         .then(() => {
-          this.user.isMod = false;
+          this.userUpdate.isMod = false;
           this.alert.type = "success";
           this.alert.text = "Account unmodded";
         })
@@ -346,7 +347,7 @@ export default {
           }
         )
         .then(() => {
-          this.user.isAdmin = true;
+          this.userUpdate.isAdmin = true;
           this.alert.type = "success";
           this.alert.text = "Account admined";
         })
@@ -368,7 +369,7 @@ export default {
           }
         )
         .then(() => {
-          this.user.isAdmin = false;
+          this.userUpdate.isAdmin = false;
           this.alert.type = "success";
           this.alert.text = "Account unadmined";
         })

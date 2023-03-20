@@ -29,6 +29,6 @@
 
 <script>
 export default {
-    name: '404'
+    name: '404Page'
 }
 </script>

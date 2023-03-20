@@ -70,7 +70,7 @@
 
 <script>
 export default {
-  name: "Header",
+  name: "HeaderComp",
   props: ['user'],
   data: () => ({
     //
