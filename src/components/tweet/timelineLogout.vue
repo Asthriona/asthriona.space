@@ -73,7 +73,7 @@
 
 <script>
 export default {
-  name: "timeline",
+  name: "timelineLogout",
   props: ["tweets"],
   data() {
     return {
