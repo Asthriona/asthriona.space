@@ -7,6 +7,7 @@ import OwnProfile from '../views/user/OwnProfile.vue'
 import profileView from '../views/user/profileView.vue'
 import editProfile from '../views/user/editProfile.vue'
 import VerifyEmail from '../views/user/EmailVerifiaction.vue'
+import resetPwRequest from '../views/user/reset-pw-request.vue'
 import HomeBlog from '../views/blog/HomeBlog.vue'
 import PostShow from '../views/blog/postView.vue'
 import AdmonHome from '../views/admin/adminHome.vue'
@@ -110,6 +111,11 @@ const routes = [
     path: '/tweet/:username/:id',
     name: 'SingleTweet',
     component: TweetView
+  },
+  {
+    path: '/reset-pw-request',
+    name: 'resetPwRequest',
+    component: resetPwRequest
   },
   {
     path: '/about',
