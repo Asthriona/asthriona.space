@@ -1,8 +1,0 @@
-version: 2
-updates:
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "daily"
-    # Set target branch to your "dev" branch
-    target-branch: "dev"
