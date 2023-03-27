@@ -9,69 +9,30 @@
     <!-- end alerts -->
     <v-container>
       <v-row>
-        <v-col cols="3" cols-sm="12">
-          <v-card title="Update Avatar">
-            <v-img :src="user.avatar"></v-img>
-            <v-card-text>
-              <v-form>
-                <!-- upload file avatar -->
-                <v-file-input
-                  v-model="file"
-                  label="Upload a new avatar"
-                  prepend-icon="mdi-camera"
-                  color="primary"
-                ></v-file-input>
-                <v-btn @click="updateAvatar" :disabled="!file">Upload</v-btn>
-              </v-form>
-            </v-card-text>
-          </v-card>
-        </v-col>
         <v-col cols="3">
           <v-card title="Update profile">
             <v-card-title>
               Edit profile
-              </v-card-title>
-              <v-form>
-                <v-text-field
-                  v-model="form.username"
-                  :counter="10"
-                  label="Username"
-                  :placeholder="user.username"
-                ></v-text-field>
-                <v-text-field
-                  v-model="form.displayName"
-                  :counter="10"
-                  label="Display Name"
-                  :placeholder="user.displayName"
-                >
-                </v-text-field>
-                <v-text-field
-                  v-model="form.description"
-                  :counter="140"
-                  label="Description"
-                  :placeholder="user.description"
-                  value="user.description"
-                ></v-text-field>
-                <v-text-field
-                  v-model="form.discriminator"
-                  :counter="4"
-                  type="number"
-                  :label="'#' + user.discriminator"
-                  :placeholder="user.discriminator"
-                  :disabled="!user.isAdmin"
-                ></v-text-field>
-                <v-tooltip bottom>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-icon v-bind="attrs" v-on="on">mdi-information</v-icon>
-                  </template>
-                  <span
-                    >Users Discriminator cannot be changed at the moment by
-                    users. <br />
-                    Please contact an admin if you want a custom one.</span
-                  >
-                </v-tooltip>
-                <v-btn color="primary" @click="updateProfile"> Update </v-btn>
-              </v-form>
+            </v-card-title>
+            <v-form>
+              <v-text-field v-model="form.username" :counter="10" label="Username"
+                :placeholder="user.username"></v-text-field>
+              <v-text-field v-model="form.displayName" :counter="10" label="Display Name" :placeholder="user.displayName">
+              </v-text-field>
+              <v-text-field v-model="form.description" :counter="140" label="Description" :placeholder="user.description"
+                value="user.description"></v-text-field>
+              <v-text-field v-model="form.discriminator" :counter="4" type="number" :label="'#' + user.discriminator"
+                :placeholder="user.discriminator" :disabled="!user.isAdmin"></v-text-field>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon v-bind="attrs" v-on="on">mdi-information</v-icon>
+                </template>
+                <span>Users Discriminator cannot be changed at the moment by
+                  users. <br />
+                  Please contact an admin if you want a custom one.</span>
+              </v-tooltip>
+              <v-btn color="primary" @click="updateProfile"> Update </v-btn>
+            </v-form>
           </v-card>
         </v-col>
         <!-- Update email -->
@@ -82,12 +43,7 @@
             </v-card-title>
             <v-card-text>
               <v-form>
-                <v-text-field
-                  v-model="form.email"
-                  :counter="50"
-                  label="Email"
-                  :placeholder="user.email"
-                ></v-text-field>
+                <v-text-field v-model="form.email" :counter="50" label="Email" :placeholder="user.email"></v-text-field>
                 <v-btn color="primary" @click="updateEmail">Update</v-btn>
               </v-form>
             </v-card-text>
@@ -97,32 +53,22 @@
           <v-card title="Choose Badge">
             <v-card-text>
               <v-form>
-                <v-select
-                  v-model="selectedBadge"
-                  :items="badges"
-                  label="Badge"
-                  :disabled="!user.isAdmin"></v-select>
+                <v-select v-model="selectedBadge" :items="badges" label="Badge" :disabled="!user.isAdmin"></v-select>
                 <v-btn color="primary" @click="updateBadge"> Update </v-btn>
               </v-form>
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="3" v-if="user.profileBanner">
-          <v-card>
-            <v-img :src="user.profileBanner"></v-img>
-            <v-card-title>Updload new Banner</v-card-title>
-            <v-card-text>
-              <v-form>
-                <v-file-input
-                  v-model="banner"
-                  label="Upload a new Banner"
-                  prepend-icon="mdi-camera"
-                  color="primary"
-                ></v-file-input>
-                <v-btn @click="updateBanner" :disabled="!banner">Upload</v-btn>
-              </v-form>
-            </v-card-text>
-          </v-card>
+      </v-row>
+      <v-row align="center" justify="center">
+        <v-col cols="12">
+          <h1><span>Update avatar</span><span v-if="user.profileBanner">and banner</span></h1>
+        </v-col>
+        <v-col>
+          <avatar-comp :userAvatar="user.avatar" />
+        </v-col>
+        <v-col v-if="user.profileBanner">
+          <banner-comp :userBanner="user.profileBanner" />
         </v-col>
       </v-row>
     </v-container>
@@ -131,7 +77,13 @@
 
 <script>
 import axios from "axios";
+// import Cropper from 'cropperjs';
+import 'cropperjs/dist/cropper.min.css';
+import avatarComp from '../../components/users/avatarComp.vue';
+import bannerComp from '../../components/users/bannerComp.vue';
+
 export default {
+  components: { avatarComp, bannerComp },
   name: "Edit-profile",
   data() {
     return {
@@ -182,34 +134,12 @@ export default {
     updateUser() {
       this.user = {}
       axios
-      .get(`${process.env.VUE_APP_URI}login/whoami`, {
-        headers: { Authorization: localStorage.getItem("token") },
-      })
-      .then(res => {
-        this.user = res.data.user
-      })
-    },
-    updateAvatar(event) {
-      event.preventDefault();
-      const formData = new FormData();
-      formData.append("avatar", this.file);
-      axios.post(`${process.env.VUE_APP_URI}profile/update/avatar`, formData, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-          "Content-Type": "multipart/form-data",
-        },
-      }).then(() => {
-        this.alert.type = "success";
-        this.alert.text = "Avatar updated";
-        this.user.avatar = URL.createObjectURL(this.file);
-        this.updateUser();
-        // emit event to update avatar in app.vue
-        // this.$emit("updateUser");
-      }).catch((error) => {
-        console.log(error);
-        this.alert.type = "error";
-        this.alert.text = error.response.data.message;
-      });
+        .get(`${process.env.VUE_APP_URI}login/whoami`, {
+          headers: { Authorization: localStorage.getItem("token") },
+        })
+        .then(res => {
+          this.user = res.data.user
+        })
     },
     updateBanner(event) {
       event.preventDefault();
@@ -257,9 +187,8 @@ export default {
           this.$emit("updateUser");
         })
         .catch((err) => {
-          this.alert.text = `${err.response.status || "500"} - ${
-            err.response.data.message || "Internal Server Error"
-          }`;
+          this.alert.text = `${err.response.status || "500"} - ${err.response.data.message || "Internal Server Error"
+            }`;
           this.alert.type = "error";
         });
     },
@@ -282,9 +211,8 @@ export default {
           this.updateUser();
         })
         .catch((err) => {
-          this.alert.text = `${err.response.status || "500"} - ${
-            err.response.data.message || "Internal Server Error"
-          }`;
+          this.alert.text = `${err.response.status || "500"} - ${err.response.data.message || "Internal Server Error"
+            }`;
           this.alert.type = "error";
         });
     },
@@ -307,9 +235,8 @@ export default {
           this.updateUser();
         })
         .catch((err) => {
-          this.alert.text = `${err.response.status || "500"} - ${
-            err.response.data.message || "Internal Server Error"
-          }`;
+          this.alert.text = `${err.response.status || "500"} - ${err.response.data.message || "Internal Server Error"
+            }`;
           this.alert.type = "error";
         });
     }
