@@ -89,13 +89,13 @@ export default {
         onMounted(() => {
             cropper = new Cropper(img.value, {
                 aspectRatio: 1,
-                minCropBoxHeight: 512,
-                minCropBoxWidth: 512,
-                viewMode: 3,
+                minCropBoxHeight: 10,
+                minCropBoxWidth: 10,
+                viewMode: 1,
                 dragMode: 'move',
                 background: false,
-                cropBoxMovable: false,
-                cropBoxResizable: false,
+                cropBoxMovable: true,
+                cropBoxResizable: true,
             })
         });
 
@@ -128,6 +128,10 @@ export default {
 @import 'cropperjs/dist/cropper.min.css';
 img {
     max-width: 256px;
+}
+#avatar {
+    max-width: 100%;
+    height: auto;
 }
 .cropper-view-box, .cropper-face {
     border-radius: 50%;

@@ -50,7 +50,7 @@ export default {
         const handleCroppedImage = () => {
             cropper.getCroppedCanvas({
                 width: 1500,
-                height: 400,
+                height: 500,
             })
             .toBlob((blog) => {
                 const formData = new FormData();
@@ -89,7 +89,7 @@ export default {
         onMounted(() => {
             cropper = new Cropper(img.value, {
                 aspectRatio: 3 / 1,
-                minCropBoxHeight: 400,
+                minCropBoxHeight: 500,
                 minCropBoxWidth: 100,
                 viewMode: 3,
                 dragMode: 'move',
