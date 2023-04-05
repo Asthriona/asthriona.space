@@ -71,7 +71,8 @@ export default {
         },
         sendTweet(media) {
             console.log(this.tweet)
-            if (this.valid && this.media !== "") {
+            if (this.valid && this.media !== null) {
+                console.log("media is not null")
                 axios.post(`${process.env.VUE_APP_URI}tweet/`, {
                     content: this.tweet,
                     media: [media]
@@ -92,7 +93,7 @@ export default {
                         console.log(error.response.data);
                     });
             } else if(this.valid && this.media === null){
-                console.log(media)
+                console.log("media is null")
                 axios.post(`${process.env.VUE_APP_URI}tweet/`, {
                     content: this.tweet,
                     media: media ? [media] : [null]
