@@ -3,6 +3,9 @@
         <v-container>
             <v-row align="center" justify="center">
                 <v-col cols="8">
+                    <v-alert :type="alert.type" v-if="alert.message">
+                    {{ alert.message }}
+                    </v-alert>
                     <v-form @submit="uploadMedia" v-model="valid" lazy-validation>
                         <v-text-field v-model="tweet" :counter="280" :rules="[rules.required, rules.min, rules.max]"
                             :placeholder="`What's up ${user.displayName}?`" require />
@@ -30,6 +33,10 @@ export default {
             file: null,
             uploadProgress: 0,
             valid: false,
+            alert: {
+                message: null,
+                type: null,
+            },
             rules: {
                 min: v => v.length >= 0 || 'Min 1 characters',
                 max: v => v.length <= 280 || 'Max 280 characters',
@@ -38,8 +45,10 @@ export default {
     },
     methods: {
         uploadMedia(event) {
-            if(this.file) {
+            console.log(this.file)
+            if(this.file !== null) {
                 event.preventDefault();
+                console.log(this.file)
                 const formData = new FormData();
                 formData.append("file", this.file);
                 console.log("lol?")
@@ -56,15 +65,38 @@ export default {
             });
             // this.sendTweet(res.data.);
             } else {
+                console.log("Sending with no files.")
                 this.sendTweet(null);
             }
         },
         sendTweet(media) {
-            if (!this.tweet || !this.file) return;
-            if (this.valid) {
+            console.log(this.tweet)
+            if (this.valid && this.media !== null) {
+                console.log("media is not null")
                 axios.post(`${process.env.VUE_APP_URI}tweet/`, {
                     content: this.tweet,
                     media: [media]
+                }, {
+                    headers: {
+                        'Authorization': `${localStorage.getItem('token')}`
+                    }
+                })
+                    .then((res) => {
+                        this.tweet = "";
+                        this.file = null;
+                        // remove focus from text field
+                        this.$refs.tweet.blur();
+
+                        return res;
+                    })
+                    .catch((error) => {
+                        console.log(error.response.data);
+                    });
+            } else if(this.valid && this.media === null){
+                console.log("media is null")
+                axios.post(`${process.env.VUE_APP_URI}tweet/`, {
+                    content: this.tweet,
+                    media: media ? [media] : [null]
                 }, {
                     headers: {
                         'Authorization': `${localStorage.getItem('token')}`
