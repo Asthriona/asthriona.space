@@ -54,7 +54,7 @@
             <p>Operating Company</p>
             <div class="figure">
               <img
-                src="https://cdn.nishikino.xyz/asthriona/icons/footLogo.png"
+                src="https://cdn.asthriona.com/i/2023/04/Asthriona%20logo"
                 alt="Asthriona Logo"
                 style="width: 100%"
               />

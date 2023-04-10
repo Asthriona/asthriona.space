@@ -8,8 +8,8 @@
             class="shrink mt-1 hidden-sm-and-down"
             contain
             min-width="100"
-            src="https://cdn.asthriona.com/i/2022/11/_pn_221108_0252AM04421.png"
-            width="300"
+            src="https://cdn.asthriona.com/i/2023/04/asthriona%20jp%20dark"
+            width="200"
         /></router-link>
       </div>
       <v-spacer></v-spacer>
