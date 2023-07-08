@@ -101,9 +101,7 @@ export default {
         min: (v) => (v && v.length >= 3) || "Must be at least 3 characters",
         max: (v) => (v && v.length <= 20) || "Must be less than 20 characters",
         email: (value) =>
-          (value &&
-            /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)) ||
-          "Invalid email",
+          (value && /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/i.test(value)) || "Invalid email",
         password: (value) =>
           (value &&
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
