@@ -16,7 +16,7 @@
     "vue-meta": "^2.4.0",
     "vue-moment": "^4.1.0",
     "vue-router": "^3.6.5",
-    "vuetify": "^2.6.15"
+    "vuetify": "^2.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.22.8",
