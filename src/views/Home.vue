@@ -291,7 +291,7 @@ export default {
 }
 
 .head-banner {
-  background-image: url(https://cdn.asthriona.com/i/2022/05/nihon-graphy-eeUmYVTkFg4-unsplash.jpg);
+  background-image: url(https://cdn.asthriona.com/i/2023/07/rplace-23);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
