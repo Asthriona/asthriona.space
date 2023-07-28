@@ -291,7 +291,7 @@ export default {
 }
 
 .head-banner {
-  background-image: url(https://cdn.asthriona.com/i/2023/07/rplace-23);
+  background-image: url(https://cdn.asthriona.com/i/2023/07/vtpl%20header.png);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
