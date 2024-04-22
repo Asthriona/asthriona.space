@@ -1,33 +1,33 @@
 <template>
   <div class="app">
-    <v-app dark>
-      <TheHeader :user="user" />
+  <v-app dark>
+<!--      <TheHeader :user="user" />
       <div class="GateWayError text-center" v-if="gatewayError == true">
         <span>
           <h1>Oops! Seems like Asthriona's gateway is down...</h1>
           <p>All major feature wont be availiable.</p>
         </span>
       </div>
-      <BanComp :user="user" v-if="user && user.isBanned" />
+<BanComp :user="user" v-if="user && user.isBanned" />-->
       <v-main dark>
         <router-view @updateUser="updateUser" :user="user" />
       </v-main>
-      <TheFooter />
+            <!--  <TheFooter />-->
     </v-app>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import TheHeader from "@/components/PageComp/TheHeader.vue";
-import TheFooter from "@/components/PageComp/TheFooter.vue";
-import BanComp from "@/components/users/banComp.vue";
+//import TheHeader from "@/components/PageComp/TheHeader.vue";
+//import TheFooter from "@/components/PageComp/TheFooter.vue";
+//import BanComp from "@/components/users/banComp.vue";
 export default {
   name: "App",
   components: {
-    TheHeader,
-    BanComp,
-    TheFooter,
+    //TheHeader,
+    //BanComp,
+    //TheFooter,
   },
   data: () => ({
     user: {},
