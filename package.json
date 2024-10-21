@@ -27,7 +27,7 @@
     "@vue/cli-plugin-router": "^5.0.8",
     "@vue/cli-service": "^5.0.8",
     "eslint": "^8.57.0",
-    "eslint-plugin-vue": "^9.11.0",
+    "eslint-plugin-vue": "^9.29.1",
     "lint-staged": "^15.2.10",
     "sass": "~1.79.5",
     "sass-loader": "^16.0.2",
